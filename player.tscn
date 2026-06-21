@@ -2,11 +2,36 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_aex8v"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sh265"]
+albedo_color = Color(0, 1, 1, 1)
+
 [node name="Player" type="CharacterBody3D" unique_id=1200495543]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=371964176]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_4flbx")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=2044791138]
+[node name="Head" type="Node3D" parent="." unique_id=634664957]
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=2044791138]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="Hand" type="Node3D" parent="." unique_id=2113815810]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Hand" unique_id=2121299291]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.2, -0.5)
+light_energy = 5.0
+shadow_enabled = true
+spot_range = 20.0
+spot_attenuation = 2.0
+spot_angle = 27.87
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hand" unique_id=1790839258]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.5, 1.2, -0.5)
+mesh = SubResource("CylinderMesh_aex8v")
+surface_material_override/0 = SubResource("StandardMaterial3D_sh265")
