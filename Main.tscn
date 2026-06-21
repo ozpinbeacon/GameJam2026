@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://danks87irmxh8"]
+
+[ext_resource type="PackedScene" uid="uid://qotj2tagmijk" path="res://player.tscn" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://bmkqtk6np1set" path="res://main.gd" id="1_r0du0"]
+[ext_resource type="Script" uid="uid://cns1eptej2qn" path="res://player.gd" id="2_uu6xs"]
+[ext_resource type="Script" uid="uid://sge1t4mef8ok" path="res://label.gd" id="4_cm0pq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wtddq"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wtddq"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aex8v"]
+size = Vector3(15, 1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cm0pq"]
+albedo_color = Color(0.6901961, 0.34901962, 0.34901962, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hrhyn"]
+material = SubResource("StandardMaterial3D_cm0pq")
+size = Vector3(15, 1, 0.5)
+
+[node name="Main" type="Node" unique_id=1482135282]
+script = ExtResource("1_r0du0")
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1816602764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=643899627]
+shape = SubResource("BoxShape3D_wtddq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=1839357535]
+mesh = SubResource("BoxMesh_wtddq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=852910211]
+transform = Transform3D(-0.14874926, -0.6008471, -0.785402, -0.9133446, -0.22096133, 0.34202012, -0.37904528, 0.768218, -0.5159126, -28.992693, 28.0941, -28.02193)
+shadow_enabled = true
+directional_shadow_blend_splits = true
+
+[node name="Player" parent="." unique_id=1200495543 instance=ExtResource("1_glv2v")]
+script = ExtResource("2_uu6xs")
+
+[node name="Wall Test" type="StaticBody3D" parent="." unique_id=147405724]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall Test" unique_id=57557698]
+transform = Transform3D(1, 0, 0, 0, 8, 0, 0, 0, 1, 0, 0.5, -10.198233)
+shape = SubResource("BoxShape3D_aex8v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall Test" unique_id=1234654581]
+transform = Transform3D(1, 0, 0, 0, 8, 0, 0, 0, 1, 0, 0.5, -10.1)
+mesh = SubResource("BoxMesh_hrhyn")
+
+[node name="Jump Test" type="StaticBody3D" parent="." unique_id=748503821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16.161285)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Jump Test" unique_id=1310274731]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -10.198233)
+shape = SubResource("BoxShape3D_aex8v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Jump Test" unique_id=1876992577]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -10.1)
+mesh = SubResource("BoxMesh_hrhyn")
+
+[node name="Label" type="Label" parent="." unique_id=1243879150]
+offset_right = 273.0
+offset_bottom = 48.0
+text = "Velocity: "
+script = ExtResource("4_cm0pq")

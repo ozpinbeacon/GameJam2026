@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://qotj2tagmijk"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
+
+[node name="Player" type="CharacterBody3D" unique_id=1200495543]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=371964176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_4flbx")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2044791138]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
