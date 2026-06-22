@@ -1,13 +1,8 @@
 [gd_scene format=3 uid="uid://qotj2tagmijk"]
 
+[ext_resource type="Script" uid="uid://jwcoclirw8rm" path="res://player_torch.gd" id="1_4flbx"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2m8s"]
-albedo_color = Color(0, 1, 0, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_rh7hd"]
-material = SubResource("StandardMaterial3D_h2m8s")
-size = Vector2(0.01, 0.01)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_aex8v"]
 top_radius = 0.1
@@ -33,15 +28,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 transform = Transform3D(3, 0, 0, 0, -1.3113416e-07, -3, 0, 3, -1.3113416e-07, 0, 0, 0)
 debug_shape_custom_color = Color(0, 1, 1, 1)
 
-[node name="CursorIndicator" type="MeshInstance3D" parent="Head/Camera3D" unique_id=1482430529]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.1)
-visible = false
-mesh = SubResource("PlaneMesh_rh7hd")
+[node name="CursorLabel" type="Label" parent="Head/Camera3D" unique_id=939075513]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -198.0
+offset_top = -39.0
+offset_right = 198.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Hand" type="Node3D" parent="." unique_id=2113815810]
-visible = false
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Hand" unique_id=2121299291]
+[node name="Torch" type="Node3D" parent="Hand" unique_id=173678321]
+visible = false
+script = ExtResource("1_4flbx")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Hand/Torch" unique_id=2121299291]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.2, -0.5)
 light_energy = 5.0
 shadow_enabled = true
@@ -49,7 +57,7 @@ spot_range = 20.0
 spot_attenuation = 2.0
 spot_angle = 27.87
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Hand" unique_id=1790839258]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hand/Torch" unique_id=1790839258]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.5, 1.2, -0.5)
 mesh = SubResource("CylinderMesh_aex8v")
 surface_material_override/0 = SubResource("StandardMaterial3D_sh265")

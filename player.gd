@@ -6,19 +6,21 @@ enum States {IDLE, WALKING, RUNNING, CROUCHING, JUMPING, FALLING, NULL}
 # Base character variables
 var state: States = States.IDLE
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var cameraSensitivity = 0.25
-var cameraAcceleration = 2
-var jumpImpulse = 5
-@export var playerSpeed = 5
-@export var playerAcceleration = 5
+var camera_sensitivity = 0.25
+var camera_acceleration = 2
+var jump_impulse = 5
+@export var player_speed = 5
+@export var player_acceleration = 5
 
 # Character part variables
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var cursor = $Head/Camera3D/Cursor
-@onready var cursorIndicator = $Head/Camera3D/CursorIndicator
+@onready var cursor_label = $Head/Camera3D/CursorLabel
 @onready var hand = $Hand
-@onready var flashlight = $Hand/SpotLight3D
+
+# Character item variables
+@onready var flashlight = get_node("Hand/Torch")
 
 # Movement control variables
 var direction = Vector3.ZERO
@@ -26,32 +28,39 @@ var head_y_axis = 0.0
 var camera_x_axis = 0.0
 
 # Character action variables
-var flashlight_bool = true
+var has_flashlight = false
 	
 # One-time events
 func _input(event):
+	# Base mouse movements
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		head_y_axis += event.relative.x * cameraSensitivity
-		camera_x_axis += event.relative.y * cameraSensitivity
+		head_y_axis += event.relative.x * camera_sensitivity
+		camera_x_axis += event.relative.y * camera_sensitivity
 	
-	if event.is_action_pressed("flashlight_toggle"):
-		if flashlight_bool:
-			flashlight_bool = false
-			flashlight.hide()
-		else:
-			flashlight_bool = true
-			flashlight.show()
+	# Toggle flashlight if flashlight is acquired
+	if event.is_action_pressed("flashlight_toggle") and has_flashlight:
+		flashlight.toggle_torch()
+	
+	# If cursor is targeting an interactable item, click to execute interaction
+	if event.is_action_pressed("click") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		if cursor.is_colliding() and cursor.get_collider() is InteractableObject:
+			cursor.get_collider().interact()
 
 # Continuous events
 func _physics_process(delta):
-	if cursor.is_colliding():
-		if cursor.get_collider().is_in_group("interactable"):
-			cursorIndicator.show()
+	# If cursor is targeting an interactable item, show label
+	if cursor.is_colliding() and cursor.get_collider() is InteractableObject:
+		cursor_label.show()
+		cursor_label.text = cursor.get_collider().label
 	else:
-		cursorIndicator.hide()
+		cursor_label.hide()
 		
-	
-	if Input.is_action_pressed("sprint"):
+	# State switch
+	if not is_on_floor() and velocity.y > 0:
+		set_state(States.JUMPING)
+	elif not is_on_floor() and velocity.y < 0:
+		set_state(States.FALLING)
+	elif Input.is_action_pressed("sprint"):
 		set_state(States.RUNNING)
 	elif Input.is_action_just_pressed("crouch"):
 		if state != States.CROUCHING:
@@ -62,41 +71,39 @@ func _physics_process(delta):
 			set_state(States.IDLE)
 	elif Input.is_anything_pressed() and not Input.is_action_pressed("ui_cancel"):
 		set_state(States.WALKING)
-	elif state not in [States.JUMPING, States.FALLING, States.CROUCHING] and not Input.is_anything_pressed():
+	elif state not in [States.CROUCHING] and not Input.is_anything_pressed():
 		set_state(States.IDLE)
 
-	playerAcceleration = 8 if state == States.RUNNING else 5
+	# Set player velocity based on inputs and character state
+	player_acceleration = 8 if state == States.RUNNING else 5
 	direction = Input.get_axis("move_left", "move_right") * head.basis.x + Input.get_axis("move_forward", "move_backwards") * head.basis.z
-	velocity = velocity.lerp(direction * playerSpeed + velocity.y * Vector3.UP, playerAcceleration * delta)
+	velocity = velocity.lerp(direction * player_speed + velocity.y * Vector3.UP, player_acceleration * delta)
 	
-	head.rotation.y = lerp(head.rotation.y, -deg_to_rad(head_y_axis), cameraAcceleration * delta)
-	camera.rotation.x = clampf(lerp(camera.rotation.x, -deg_to_rad(camera_x_axis), cameraAcceleration * delta), -deg_to_rad(70), deg_to_rad(70))
+	# Lerp camera movement
+	head.rotation.y = lerp(head.rotation.y, -deg_to_rad(head_y_axis), camera_acceleration * delta)
+	camera.rotation.x = clampf(lerp(camera.rotation.x, -deg_to_rad(camera_x_axis), camera_acceleration * delta), -deg_to_rad(70), deg_to_rad(70))
 
-	
+	# Instant hand movement
 	hand.rotation.y = -deg_to_rad(head_y_axis)
 	hand.rotation.x = -deg_to_rad(camera_x_axis)
 	
+	# Jump and fall velocity
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		velocity.y += jumpImpulse
+		velocity.y += jump_impulse
 	else:
 		velocity.y -= gravity * delta
-
-	if not is_on_floor() and velocity.y > 0:
-		set_state(States.JUMPING)
-	elif not is_on_floor() and velocity.y < 0:
-		set_state(States.FALLING)
-		
+	
+	# Move and slide
 	move_and_slide()
 
 func set_state(new_state: States) -> void:
-	var prev_state := state
 	state = new_state
 	print("Set state to " + get_state(new_state))
 
-func get_state(passedState: States = States.NULL) -> String:
+func get_state(passed_state: States = States.NULL) -> String:
 	var state_value: States
-	if passedState != States.NULL:
-		state_value = passedState
+	if passed_state != States.NULL:
+		state_value = passed_state
 	else:
 		state_value = state
 	
