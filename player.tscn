@@ -2,6 +2,13 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2m8s"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rh7hd"]
+material = SubResource("StandardMaterial3D_h2m8s")
+size = Vector2(0.01, 0.01)
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_aex8v"]
 top_radius = 0.1
 bottom_radius = 0.1
@@ -14,14 +21,25 @@ albedo_color = Color(0, 1, 1, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=371964176]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 shape = SubResource("CapsuleShape3D_4flbx")
 
 [node name="Head" type="Node3D" parent="." unique_id=634664957]
-
-[node name="Camera3D" type="Camera3D" parent="Head" unique_id=2044791138]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=2044791138]
+
+[node name="Cursor" type="RayCast3D" parent="Head/Camera3D" unique_id=1784572006]
+transform = Transform3D(3, 0, 0, 0, -1.3113416e-07, -3, 0, 3, -1.3113416e-07, 0, 0, 0)
+debug_shape_custom_color = Color(0, 1, 1, 1)
+
+[node name="CursorIndicator" type="MeshInstance3D" parent="Head/Camera3D" unique_id=1482430529]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.1)
+visible = false
+mesh = SubResource("PlaneMesh_rh7hd")
+
 [node name="Hand" type="Node3D" parent="." unique_id=2113815810]
+visible = false
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Hand" unique_id=2121299291]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.2, -0.5)
