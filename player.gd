@@ -1,4 +1,4 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 
 # Character animation states
 enum States {IDLE, WALKING, RUNNING, CROUCHING, JUMPING, FALLING, NULL}
