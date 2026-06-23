@@ -11,6 +11,9 @@ func enter(payload: Dictionary = {}) -> void:
 func physics_process(delta: float) -> void:
 	if enemy.vision.is_colliding and enemy.vision.get_collider() is Player:
 		finished.emit(EnemyState.CHASING)
+	else:
+		enemy.rotation.y = lerp(enemy.rotation.y, atan2(-target.x, -target.z), 0.75 * delta)
+
 
 func exit() -> void:
 	target = Vector3.ZERO

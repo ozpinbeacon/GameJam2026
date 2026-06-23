@@ -51,6 +51,9 @@ size = Vector2(1, 1.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_hrhyn"]
 size = Vector3(1.2, 1.7, 0.2)
 
+[sub_resource type="LabelSettings" id="LabelSettings_0rspp"]
+font_size = 63
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aex8v"]
 shader = ExtResource("8_trn2v")
 
@@ -246,13 +249,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -37.5
-offset_right = 100.0
-offset_bottom = 37.5
+offset_left = -332.0
+offset_top = -102.75
+offset_right = 332.0
+offset_bottom = 102.75
 grow_horizontal = 2
 grow_vertical = 2
 text = "Paused"
+label_settings = SubResource("LabelSettings_0rspp")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -266,6 +270,6 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Node3D" type="Node3D" parent="." unique_id=627065297]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.391058, 0, -21.178516)
-top_level = true
+[node name="DebugPointer" type="Node3D" parent="." unique_id=1372152692]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.483, 1, -18.178)
+visible = false

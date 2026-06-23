@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://b2tg5n0vpeg8a" path="res://Enemy/enemy.gd" id="1_7k104"]
 [ext_resource type="Script" uid="uid://cc1t5serv6von" path="res://Enemy/states/alert.gd" id="2_am0pq"]
+[ext_resource type="ArrayMesh" uid="uid://c8kldctuet5hv" path="res://Enemy/debug.obj" id="2_glvfu"]
 [ext_resource type="Script" uid="uid://d4hewtsnn2ctv" path="res://statemachine.gd" id="2_m6jha"]
 [ext_resource type="Script" uid="uid://b3uj1uqghco6u" path="res://Enemy/states/enemy_state.gd" id="3_eqilm"]
 [ext_resource type="Script" uid="uid://catu335mo8giv" path="res://Enemy/states/chasing.gd" id="4_eqilm"]
 [ext_resource type="Script" uid="uid://comd7em2lb68r" path="res://Enemy/states/patrolling.gd" id="5_ncf7h"]
+[ext_resource type="Script" uid="uid://d4j0uagsfdpje" path="res://Enemy/states/investigating.gd" id="8_0rspp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_aex8v"]
 
@@ -13,6 +15,13 @@
 albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aex8v"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7t72e"]
+points = PackedVector3Array(-0.2, 0.3, 0, -0.2, 0.5, 0, 0.2, 0.5, 0, 0.2, 0.3, 0, -5, -2, -10, -5, 2, -10, 5, -2, -10, 5, 2, -10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p6whi"]
+transparency = 1
+albedo_color = Color(0.62352943, 0, 0, 0.2509804)
 
 [sub_resource type="BoxMesh" id="BoxMesh_aex8v"]
 size = Vector3(0.1, 0.1, 10)
@@ -29,12 +38,26 @@ shape = SubResource("CapsuleShape3D_aex8v")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=799209753]
 
+[node name="Vision" type="Area3D" parent="." unique_id=1839217198]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Vision" unique_id=1773419017]
+shape = SubResource("ConvexPolygonShape3D_7t72e")
+
+[node name="Debug" type="Node3D" parent="Vision" unique_id=217895187]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Vision/Debug" unique_id=1574171025]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = ExtResource("2_glvfu")
+surface_material_override/0 = SubResource("StandardMaterial3D_p6whi")
+
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=786826990]
 transform = Transform3D(3, 0, 0, 0, -4.371139e-07, -3, 0, 10, -1.3113416e-07, 0, 0.5, 0)
+visible = false
 debug_shape_custom_color = Color(0, 1, 1, 1)
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1663624839]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -5)
+visible = false
 mesh = SubResource("BoxMesh_aex8v")
 
 [node name="StateMachine" type="Node" parent="." unique_id=2001786378 node_paths=PackedStringArray("initial_state")]
@@ -52,3 +75,6 @@ script = ExtResource("4_eqilm")
 
 [node name="EnemyState" type="Node" parent="StateMachine" unique_id=939958556]
 script = ExtResource("3_eqilm")
+
+[node name="Investigating" type="Node" parent="StateMachine" unique_id=728980570]
+script = ExtResource("8_0rspp")

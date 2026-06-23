@@ -21,7 +21,7 @@ func physics_process(_delta: float) -> void:
 		next_patrol_point += 1
 
 func noise_heard(event: Dictionary) -> void:
-	var event_type: Events.NoiseType = event["type"]
+	var event_type: Events.NoiseType = event["event_type"]
 	var event_location: Vector3 = event["location"]
 	var payload = {"location": event["location"]}
 	

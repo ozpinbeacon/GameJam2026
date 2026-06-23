@@ -8,12 +8,13 @@ func _ready() -> void:
 	label = "Chasing"
 
 func enter(payload: Dictionary = {}) -> void:
+	enemy.current_speed = 5
 	player = payload.get("player")
 	target = player.global_position
 	enemy.nav_agent.set_target_position(player.global_position)
 
 func physics_process(_delta: float) -> void:
-	if not enemy.vision.is_colliding() or not enemy.vision.get_collider() is Player:
+	if not enemy.vision.overlaps_body(player):
 		if target == Vector3.ZERO:
 			target = player.global_position
 			enemy.nav_agent.set_target_position(target)
@@ -28,6 +29,7 @@ func physics_process(_delta: float) -> void:
 		enemy.nav_agent.set_target_position(player.global_position)
 
 func exit() -> void:
+	enemy.current_speed = enemy.BASE_SPEED
 	player = null
 	player_last_seen = 600
 	target = Vector3.ZERO

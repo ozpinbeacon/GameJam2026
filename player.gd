@@ -47,7 +47,7 @@ func _input(event):
 			cursor.get_collider().interact()
 	
 	if event.is_action_pressed("yell"):
-		Events.player_noise.emit(Events.NoiseType.YELL)
+		Events.player_noise.emit({"event_type": Events.NoiseType.YELL, "location": global_position})
 
 # Continuous events
 func _physics_process(delta):
@@ -84,9 +84,9 @@ func _physics_process(delta):
 	
 	if velocity.x != 0 or velocity.z != 0:
 		if state == States.RUNNING:
-			Events.player_noise.emit(Events.NoiseType.RUN)
+			Events.player_noise.emit({"event_type": Events.NoiseType.RUN, "location": global_position})
 		elif state == States.WALKING:
-			Events.player_noise.emit(Events.NoiseType.WALK)
+			Events.player_noise.emit({"event_type": Events.NoiseType.WALK, "location": global_position})
 
 	# Lerp camera movement
 	head.rotation.y = lerp(head.rotation.y, -deg_to_rad(head_y_axis), camera_acceleration * delta)
