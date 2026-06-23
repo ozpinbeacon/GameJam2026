@@ -9,11 +9,11 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		get_tree().paused = true
-		pause_menu.show()
-	if event.is_action_pressed("click"):
-		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+		if not get_tree().paused:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			get_tree().paused = true
+			pause_menu.show()
+		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			get_tree().paused = false
 			pause_menu.hide()
+			get_tree().paused = false

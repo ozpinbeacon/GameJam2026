@@ -21,7 +21,7 @@ points = PackedVector3Array(-0.2, 0.3, 0, -0.2, 0.5, 0, 0.2, 0.5, 0, 0.2, 0.3, 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p6whi"]
 transparency = 1
-albedo_color = Color(0.62352943, 0, 0, 0.2509804)
+albedo_color = Color(0, 0, 0.9098039, 0.2509804)
 
 [sub_resource type="BoxMesh" id="BoxMesh_aex8v"]
 size = Vector3(0.1, 0.1, 10)
