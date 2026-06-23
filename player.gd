@@ -45,6 +45,9 @@ func _input(event):
 	if event.is_action_pressed("click") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if cursor.is_colliding() and cursor.get_collider() is InteractableObject:
 			cursor.get_collider().interact()
+	
+	if event.is_action_pressed("yell"):
+		Events.player_noise.emit(Events.NoiseType.YELL)
 
 # Continuous events
 func _physics_process(delta):
@@ -79,6 +82,12 @@ func _physics_process(delta):
 	direction = Input.get_axis("move_left", "move_right") * head.basis.x + Input.get_axis("move_forward", "move_backwards") * head.basis.z
 	velocity = velocity.lerp(direction * player_speed + velocity.y * Vector3.UP, player_acceleration * delta)
 	
+	if velocity.x != 0 or velocity.z != 0:
+		if state == States.RUNNING:
+			Events.player_noise.emit(Events.NoiseType.RUN)
+		elif state == States.WALKING:
+			Events.player_noise.emit(Events.NoiseType.WALK)
+
 	# Lerp camera movement
 	head.rotation.y = lerp(head.rotation.y, -deg_to_rad(head_y_axis), camera_acceleration * delta)
 	camera.rotation.x = clampf(lerp(camera.rotation.x, -deg_to_rad(camera_x_axis), camera_acceleration * delta), -deg_to_rad(70), deg_to_rad(70))

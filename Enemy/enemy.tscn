@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://qeikjdj32f1g"]
 
-[ext_resource type="Script" uid="uid://b2tg5n0vpeg8a" path="res://enemy.gd" id="1_7k104"]
+[ext_resource type="Script" uid="uid://b2tg5n0vpeg8a" path="res://Enemy/enemy.gd" id="1_7k104"]
+[ext_resource type="Script" uid="uid://cc1t5serv6von" path="res://Enemy/states/alert.gd" id="2_am0pq"]
+[ext_resource type="Script" uid="uid://d4hewtsnn2ctv" path="res://statemachine.gd" id="2_m6jha"]
+[ext_resource type="Script" uid="uid://b3uj1uqghco6u" path="res://Enemy/states/enemy_state.gd" id="3_eqilm"]
+[ext_resource type="Script" uid="uid://catu335mo8giv" path="res://Enemy/states/chasing.gd" id="4_eqilm"]
+[ext_resource type="Script" uid="uid://comd7em2lb68r" path="res://Enemy/states/patrolling.gd" id="5_ncf7h"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_aex8v"]
 
@@ -31,3 +36,19 @@ debug_shape_custom_color = Color(0, 1, 1, 1)
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1663624839]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -5)
 mesh = SubResource("BoxMesh_aex8v")
+
+[node name="StateMachine" type="Node" parent="." unique_id=2001786378 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_m6jha")
+initial_state = NodePath("Patrolling")
+
+[node name="Patrolling" type="Node" parent="StateMachine" unique_id=2137414634]
+script = ExtResource("5_ncf7h")
+
+[node name="Alert" type="Node" parent="StateMachine" unique_id=806173071]
+script = ExtResource("2_am0pq")
+
+[node name="Chasing" type="Node" parent="StateMachine" unique_id=1424487293]
+script = ExtResource("4_eqilm")
+
+[node name="EnemyState" type="Node" parent="StateMachine" unique_id=939958556]
+script = ExtResource("3_eqilm")
