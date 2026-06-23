@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bql044o87a85i"]
+
+[ext_resource type="Shader" uid="uid://k6wltamtne5p" path="res://GLOBAL_RESOURCES/Shaders/kiefers_outline_shader/kiefers_outline_shader.gdshader" id="1_xo4kr"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_xo4kr")
+shader_parameter/outline_color = Color(0.162, 0.38829997, 0.6, 1)
+shader_parameter/outline_width = 6.0

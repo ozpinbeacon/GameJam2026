@@ -1,0 +1,32 @@
+[gd_resource type="VisualShader" format=3 uid="uid://d0ucn8exkeqte"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_0ofe4"]
+source = 5
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_78i6u"]
+input_name = "sky_coords"
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_no3pq"]
+parameter_name = "tex"
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeCubemap" id="VisualShaderNodeCubemap_kd7on"]
+output_port_for_preview = 0
+texture_type = 1
+
+[resource]
+mode = 3
+flags/use_half_res_pass = false
+flags/use_quarter_res_pass = false
+flags/disable_fog = true
+flags/use_debanding = true
+nodes/sky/0/position = Vector2(500, 0)
+nodes/sky/2/node = SubResource("VisualShaderNodeTexture_0ofe4")
+nodes/sky/2/position = Vector2(190, 240)
+nodes/sky/3/node = SubResource("VisualShaderNodeInput_78i6u")
+nodes/sky/3/position = Vector2(-390, 80)
+nodes/sky/4/node = SubResource("VisualShaderNodeTexture2DParameter_no3pq")
+nodes/sky/4/position = Vector2(-400, 340)
+nodes/sky/5/node = SubResource("VisualShaderNodeCubemap_kd7on")
+nodes/sky/5/position = Vector2(-70, -200)
+nodes/sky/connections = PackedInt32Array(2, 0, 0, 0, 3, 0, 5, 0, 4, 0, 2, 2, 5, 0, 2, 0)

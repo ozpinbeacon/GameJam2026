@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dqdx5apcvq3tb"]
+
+[ext_resource type="Script" uid="uid://cdtsqriuid7td" path="res://GLOBALS/signal_bus/signal_bus.gd" id="1_81udn"]
+[ext_resource type="Resource" uid="uid://bdxp8piypktgu" path="res://GLOBALS/signal_bus/main_signal_library.tres" id="2_aq5ha"]
+
+[node name="SignalBus" type="Node" unique_id=10841904]
+process_mode = 3
+script = ExtResource("1_81udn")
+signal_library = ExtResource("2_aq5ha")

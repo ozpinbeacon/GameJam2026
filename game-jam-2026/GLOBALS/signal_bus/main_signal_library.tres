@@ -1,0 +1,61 @@
+[gd_resource type="Resource" script_class="SignalLibrary" format=3 uid="uid://bdxp8piypktgu"]
+
+[ext_resource type="Script" uid="uid://b011njddxydbv" path="res://GLOBALS/signal_bus/global_signal_resource.gd" id="1_xxc5j"]
+[ext_resource type="Script" uid="uid://u3d7yjnycf8f" path="res://GLOBALS/signal_bus/signal_library_resource.gd" id="2_jhu4g"]
+
+[sub_resource type="Resource" id="Resource_jhu4g"]
+script = ExtResource("1_xxc5j")
+signal_name = "player_ready"
+parameters = [NodePath("")]
+metadata/_custom_type_script = "uid://b011njddxydbv"
+
+[sub_resource type="Resource" id="Resource_aq5ha"]
+script = ExtResource("1_xxc5j")
+signal_name = "enable_player"
+metadata/_custom_type_script = "uid://b011njddxydbv"
+
+[sub_resource type="Resource" id="Resource_hlhal"]
+script = ExtResource("1_xxc5j")
+signal_name = "disable_player"
+parameters = [false]
+metadata/_custom_type_script = "uid://b011njddxydbv"
+
+[sub_resource type="Resource" id="Resource_6d5wa"]
+script = ExtResource("1_xxc5j")
+signal_name = "request_new_state"
+parameters = [""]
+metadata/_custom_type_script = "uid://b011njddxydbv"
+
+[sub_resource type="Resource" id="Resource_4nk5b"]
+script = ExtResource("1_xxc5j")
+signal_name = "change_all_lanterns_color"
+parameters = [Color(0, 0, 0, 1)]
+metadata/_custom_type_script = "uid://b011njddxydbv"
+
+[sub_resource type="Resource" id="Resource_ld3ab"]
+script = ExtResource("1_xxc5j")
+signal_name = "teleport_complete"
+metadata/_custom_type_script = "uid://b011njddxydbv"
+
+[sub_resource type="Resource" id="Resource_624fv"]
+script = ExtResource("1_xxc5j")
+signal_name = "tween_sun_strength"
+parameters = [0.0, 0.0]
+metadata/_custom_type_script = "uid://b011njddxydbv"
+
+[sub_resource type="Resource" id="Resource_fd7f4"]
+script = ExtResource("1_xxc5j")
+signal_name = "tween_sun_scale"
+parameters = [0.0, 0.0]
+metadata/_custom_type_script = "uid://b011njddxydbv"
+
+[sub_resource type="Resource" id="Resource_tippb"]
+script = ExtResource("1_xxc5j")
+signal_name = "start_bleeding"
+parameters = ["", 0.0]
+metadata/_custom_type_script = "uid://b011njddxydbv"
+
+[resource]
+script = ExtResource("2_jhu4g")
+global_signals = Array[ExtResource("1_xxc5j")]([SubResource("Resource_jhu4g"), SubResource("Resource_aq5ha"), SubResource("Resource_hlhal"), SubResource("Resource_6d5wa"), SubResource("Resource_4nk5b"), SubResource("Resource_ld3ab"), SubResource("Resource_624fv"), SubResource("Resource_fd7f4"), SubResource("Resource_tippb")])
+metadata/_custom_type_script = "uid://u3d7yjnycf8f"

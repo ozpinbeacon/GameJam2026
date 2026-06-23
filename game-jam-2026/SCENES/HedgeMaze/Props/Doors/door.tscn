@@ -1,0 +1,139 @@
+[gd_scene format=3 uid="uid://bcrrxa4ugjdwh"]
+
+[ext_resource type="Script" uid="uid://cnxns7nmvrsyr" path="res://SCENES/HedgeMaze/Props/Doors/door.gd" id="1_ekii2"]
+[ext_resource type="PackedScene" uid="uid://0tvgwgh4hx18" path="res://SCENES/HedgeMaze/Props/Doors/FancyDarkWoodenDoorFrame.glb" id="1_trvk8"]
+[ext_resource type="PackedScene" uid="uid://b6xjl4ft73xy5" path="res://SCENES/HedgeMaze/Props/Doors/FancyDarkWoodenDoor.glb" id="2_04h35"]
+[ext_resource type="PackedScene" uid="uid://dc2ffkcvg7v2x" path="res://GLOBAL_RESOURCES/UNCLE_E_TRAINS_CUSTOM_CLASSES/InteractableComponent_class/interactable_component.tscn" id="3_04h35"]
+[ext_resource type="ArrayMesh" uid="uid://c7vw7keogqamj" path="res://SCENES/HedgeMaze/Props/Doors/Meshes/FancyDarkWoodenDoor_DoorFrame.res" id="3_inro5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j7oc2"]
+resource_local_to_scene = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pb32r"]
+material = SubResource("StandardMaterial3D_j7oc2")
+size = Vector2(1, 2.1)
+
+[sub_resource type="Animation" id="Animation_ekii2"]
+resource_name = "OpenDoor"
+length = 4.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FancyDarkWoodenDoor/DoorKnob:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.86, 1.38, 1.79, 2.21),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.7115363), Vector3(0, 0, -0.021109926), Vector3(0, 0, -0.7394367), Vector3(0, 0, 0.009734784), Vector3(0, 0, -2.3683672)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FancyDarkWoodenDoor:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.21, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, -2.303395, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_inro5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FancyDarkWoodenDoor/DoorKnob:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FancyDarkWoodenDoor:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fijgx"]
+_data = {
+&"OpenDoor": SubResource("Animation_ekii2"),
+&"RESET": SubResource("Animation_inro5")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pb32r"]
+size = Vector3(1.1, 2.2, 0.4)
+
+[node name="Door" type="Node3D" unique_id=320925144]
+script = ExtResource("1_ekii2")
+
+[node name="FancyDarkWoodenDoorFrame" parent="." unique_id=1022653723 instance=ExtResource("1_trvk8")]
+
+[node name="DoorFrame" parent="FancyDarkWoodenDoorFrame" index="0" unique_id=130788481]
+mesh = ExtResource("3_inro5")
+
+[node name="StaticBody3D" parent="FancyDarkWoodenDoorFrame/DoorFrame" index="0" unique_id=1473819864]
+collision_mask = 16
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FancyDarkWoodenDoorFrame" unique_id=1124676431]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.44792163, 1.0557678, -1.9334543e-09)
+mesh = SubResource("PlaneMesh_pb32r")
+
+[node name="DoorPlaneMesh" parent="FancyDarkWoodenDoorFrame" index="2" unique_id=911203620]
+visible = false
+layers = 2
+
+[node name="FancyDarkWoodenDoor" parent="." unique_id=378799629 instance=ExtResource("2_04h35")]
+
+[node name="DoorCOL" parent="FancyDarkWoodenDoor" index="2" unique_id=1581499307]
+collision_mask = 16
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=585264802]
+libraries/ = SubResource("AnimationLibrary_fijgx")
+
+[node name="InteractableComponent" parent="." unique_id=893987999 node_paths=PackedStringArray("parent") instance=ExtResource("3_04h35")]
+collision_layer = 2
+parent = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableComponent" unique_id=1876701788]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 1.1008492, 1.4901161e-08)
+shape = SubResource("BoxShape3D_pb32r")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=63061998]
+
+[node name="Area3D" type="Area3D" parent="." unique_id=567355987]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.32107544)
+collision_mask = 16
+monitorable = false
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D" unique_id=958255787]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 1.1008492, 1.4901161e-08)
+shape = SubResource("BoxShape3D_pb32r")
+
+[node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=1750183509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4562118, 1.0459429, 0.8462343)
+light_color = Color(1, 0.35000002, 0.35000002, 1)
+light_energy = 0.1
+area_size = Vector2(1, 2)
+
+[node name="TeleportTargetMarker3D" type="Marker3D" parent="." unique_id=366525881]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.49647382, 0, 0.41674784)
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+
+[editable path="FancyDarkWoodenDoorFrame"]
+[editable path="FancyDarkWoodenDoor"]

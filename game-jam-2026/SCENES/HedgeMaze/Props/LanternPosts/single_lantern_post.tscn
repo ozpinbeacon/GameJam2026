@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dxpig6qjrfykc"]
+
+[ext_resource type="Script" uid="uid://b8gtvhjuobs32" path="res://SCENES/HedgeMaze/Props/LanternPosts/single_lantern_post.gd" id="1_4nk5b"]
+[ext_resource type="PackedScene" uid="uid://bere7nbbtc0qg" path="res://SCENES/HedgeMaze/Props/LanternPosts/SingleLanternPost.glb" id="1_34lqf"]
+
+[node name="Lantern" type="Node3D" unique_id=517197524 node_paths=PackedStringArray("omni_light_3d")]
+script = ExtResource("1_4nk5b")
+omni_light_3d = NodePath("OmniLight3D")
+
+[node name="SingleLanternPost" parent="." unique_id=7045089 instance=ExtResource("1_34lqf")]
+
+[node name="Glow" parent="SingleLanternPost" index="2" unique_id=1718578957]
+visible = false
+
+[node name="PostCOL" parent="SingleLanternPost" index="3" unique_id=2087222318]
+visible = false
+collision_mask = 16
+
+[node name="LanterCOL" parent="SingleLanternPost" index="4" unique_id=1302416780]
+visible = false
+collision_mask = 16
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=136848078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2000046, 0)
+light_color = Color(1, 0.89849997, 0.71000004, 1)
+light_energy = 2.0
+light_indirect_energy = 0.3
+light_volumetric_fog_energy = 2.0
+light_size = 2.0
+light_cull_mask = 4294967293
+omni_range = 8.0
+omni_attenuation = 0.3
+
+[editable path="SingleLanternPost"]

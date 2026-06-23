@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cqajbd24aslok"]
+
+[ext_resource type="Script" uid="uid://cl4ovqmr2d75r" path="res://GLOBALS/camera_switcher/camera_switcher.gd" id="1_82m5q"]
+
+[node name="CameraTransition" type="Node" unique_id=1356603835]
+script = ExtResource("1_82m5q")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1487949532]

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dc2ffkcvg7v2x"]
+
+[ext_resource type="Script" uid="uid://8gc7ummk12oo" path="res://GLOBAL_RESOURCES/UNCLE_E_TRAINS_CUSTOM_CLASSES/InteractableComponent_class/InteractableComponent_class.gd" id="1_xkvfu"]
+
+[node name="InteractableComponent" type="Area3D" unique_id=893987999 node_paths=PackedStringArray("highlight_audio_player", "interact_audio_player")]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_xkvfu")
+highlight_audio_player = NodePath("Highlight")
+interact_audio_player = NodePath("Interact")
+
+[node name="Interact" type="AudioStreamPlayer" parent="." unique_id=29672417]
+
+[node name="Highlight" type="AudioStreamPlayer" parent="." unique_id=1344465640]
+max_polyphony = 2

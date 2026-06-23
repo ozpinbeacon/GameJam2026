@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dpeoy1t3scobv"]
+
+[ext_resource type="Texture2D" uid="uid://my1xa2hsghdd" path="res://SCENES/HedgeMaze/Props/Doors/FancyDarkWoodenDoorFrame_ALBEDODoorFrame.png" id="1_10w0l"]
+[ext_resource type="Texture2D" uid="uid://baltclrmqyrg" path="res://SCENES/HedgeMaze/Props/Doors/Textures/FancyDarkWoodenDoor_ALBEDODoorFrame.png" id="2_37dse"]
+
+[resource]
+resource_name = "DoorFrame"
+cull_mode = 2
+albedo_texture = ExtResource("1_10w0l")
+emission_enabled = true
+emission_energy_multiplier = 0.1
+emission_texture = ExtResource("2_37dse")
+metadata/_gltf_primary_texture_coord = 0

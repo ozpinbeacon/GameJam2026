@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://b8nswhu204rg5"]
+
+[ext_resource type="Script" uid="uid://dvyxfmw7hspg4" path="res://GLOBAL_RESOURCES/UNCLE_E_TRAINS_CUSTOM_CLASSES/InputBuffer_class/input_buffer.gd" id="1_sikrs"]
+
+[node name="InputBuffer" type="Node" unique_id=911072434 node_paths=PackedStringArray("input_timer_buffer")]
+script = ExtResource("1_sikrs")
+buffered_inputs = {
+"jump": "JUMP",
+"slide": "SLIDE"
+}
+input_timer_buffer = NodePath("InputTimerBuffer")
+
+[node name="InputTimerBuffer" type="Timer" parent="." unique_id=765464789]
+one_shot = true

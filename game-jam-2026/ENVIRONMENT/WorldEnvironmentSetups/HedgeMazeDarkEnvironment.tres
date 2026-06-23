@@ -1,0 +1,68 @@
+[gd_resource type="Environment" format=3 uid="uid://sohs7nedqja6"]
+
+[ext_resource type="Shader" uid="uid://c1677liiqs85i" path="res://GLOBAL_RESOURCES/Shaders/godot_skies_shader/godot_skies_shader.gdshader" id="1_b0krs"]
+[ext_resource type="Texture2D" uid="uid://dlrtv1ge7woam" path="res://ENVIRONMENT/Textures/Sky_Clouds_Photo_Texture_RED.png" id="1_opo7j"]
+[ext_resource type="Texture2D" uid="uid://blqbypnilaagd" path="res://ENVIRONMENT/Textures/Sky_Clouds_Photo_Texture_WHITE_RED.png" id="3_ylkxo"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3cpa4"]
+frequency = 0.0314
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mhgy5"]
+noise = SubResource("FastNoiseLite_3cpa4")
+seamless = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7sf6n"]
+shader = ExtResource("1_b0krs")
+shader_parameter/sky_day = Color(0, 0.03900001, 0.09, 1)
+shader_parameter/horizon_day = Color(0.1716, 0.18370001, 0.22, 1)
+shader_parameter/horizon_sunset = Color(0.9, 0.4, 0.1, 1)
+shader_parameter/sky_sunset = Color(0.15, 0.2, 0.4, 1)
+shader_parameter/horizon_night = Color(0.1, 0.15, 0.2, 1)
+shader_parameter/sky_night = Color(0.05, 0.1, 0.15, 1)
+shader_parameter/day_night_mix = 1.0
+shader_parameter/use_directional_light = true
+shader_parameter/horizon_exponent = 2.0
+shader_parameter/sunset_amount_exponent = 0.0
+shader_parameter/night_amount_exponent = 4.0
+shader_parameter/cloud_tex_01 = ExtResource("1_opo7j")
+shader_parameter/cloud_tex_02 = ExtResource("3_ylkxo")
+shader_parameter/cloud_color = Color(0.3948, 0.39981332, 0.47, 1)
+shader_parameter/cloud_tiling = Vector2(4, 4)
+shader_parameter/wind_speed = Vector2(0.5, 0.5)
+shader_parameter/cloud_density = 0.90000001341108
+shader_parameter/cloud_depth = 1.0
+shader_parameter/cloud_shape_exponent = 2.0
+shader_parameter/cloud_occlude_exponent = 0.8
+shader_parameter/night_noise_01 = SubResource("NoiseTexture2D_mhgy5")
+shader_parameter/sun_scale = 0.4
+shader_parameter/sun_strength = 2.0
+shader_parameter/sun_color = Color(0.59, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_b0krs"]
+sky_material = SubResource("ShaderMaterial_7sf6n")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_b0krs")
+tonemap_mode = 2
+fog_mode = 1
+fog_light_color = Color(0.28, 0.28, 0.28, 1)
+fog_light_energy = 0.05
+fog_density = 0.6833
+fog_sky_affect = 0.0
+fog_height_density = 3.0407
+fog_depth_curve = 0.12940833
+fog_depth_begin = 0.0
+fog_depth_end = 10.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.3577
+volumetric_fog_albedo = Color(0.17, 0.17, 0.17, 1)
+volumetric_fog_gi_inject = 0.0
+volumetric_fog_length = 40.0
+volumetric_fog_detail_spread = 0.5
+volumetric_fog_ambient_inject = 1.0
+volumetric_fog_sky_affect = 0.0
+adjustment_enabled = true
+adjustment_brightness = 0.73
+adjustment_saturation = 2.0

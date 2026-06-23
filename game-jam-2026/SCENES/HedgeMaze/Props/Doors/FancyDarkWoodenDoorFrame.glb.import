@@ -1,0 +1,97 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://0tvgwgh4hx18"
+path="res://.godot/imported/FancyDarkWoodenDoorFrame.glb-ca7a96c41a122482cc2a700c02dfb5fb.scn"
+
+[deps]
+
+source_file="res://SCENES/HedgeMaze/Props/Doors/FancyDarkWoodenDoorFrame.glb"
+dest_files=["res://.godot/imported/FancyDarkWoodenDoorFrame.glb-ca7a96c41a122482cc2a700c02dfb5fb.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/root_script=null
+mesh_library/use_node_names_as_mesh_names=false
+array_mesh/deduplicate_surfaces=true
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
+_subresources={
+"materials": {
+"DoorHandleDetail": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://SCENES/HedgeMaze/Props/Doors/Materials/DoorHandleDetail.tres",
+"use_external/path": "uid://b31g40gssmpb6"
+},
+"DoorHandleMain": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://SCENES/HedgeMaze/Props/Doors/Materials/DoorHandleMain.tres",
+"use_external/path": "uid://xminh87omreg"
+},
+"DoorMain": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://SCENES/HedgeMaze/Props/Doors/Materials/DoorMain.tres",
+"use_external/path": "uid://b8bvegnohrb6q"
+},
+"DoorPortal": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://SCENES/HedgeMaze/Props/Doors/Materials/DoorPortal.tres",
+"use_external/path": "uid://fdnihlvdp0ed"
+}
+},
+"meshes": {
+"FancyDarkWoodenDoorFrame_Door": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://SCENES/HedgeMaze/Props/Doors/Meshes/FancyDarkWoodenDoorFrame_Door.res",
+"save_to_file/path": "uid://wudem322x0dg"
+},
+"FancyDarkWoodenDoorFrame_DoorKnob": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://SCENES/HedgeMaze/Props/Doors/Meshes/FancyDarkWoodenDoorFrame_DoorKnob.res",
+"save_to_file/path": "uid://c6lp2tli5enij"
+},
+"FancyDarkWoodenDoorFrame_DoorPlaneMesh": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://SCENES/HedgeMaze/Props/Doors/Meshes/FancyDarkWoodenDoorFrame_DoorPlaneMesh.res",
+"save_to_file/path": "uid://ctwqpcgrxhl2k"
+}
+}
+}
+gltf/naming_version=2
+gltf/embedded_image_handling=1
+gltf/texture_map_mode=1

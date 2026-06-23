@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://vekd1rn8w4mk"]
+
+[ext_resource type="PackedScene" uid="uid://p0pvgrymlypx" path="res://SCENES/HedgeMaze/Props/BigFuckinTree/BigFknTree.glb" id="1_l2m3t"]
+[ext_resource type="Script" uid="uid://dwyr5gwlcmhhn" path="res://SCENES/HedgeMaze/Props/BigFuckinTree/big_fuckin_tree.gd" id="1_r7bj0"]
+
+[node name="BigFuckinTree" type="Node3D" unique_id=1528279797]
+script = ExtResource("1_r7bj0")
+
+[node name="BigFknTree" parent="." unique_id=1620255822 instance=ExtResource("1_l2m3t")]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="BigFknTree/TreeArmature" parent_id_path=PackedInt32Array(1620255822, 431619566) index="0" unique_id=1152627234]
+bones/2/rotation = Quaternion(-0.0057598697, 0.13253722, 0.13361453, 0.98211396)
+bones/4/rotation = Quaternion(-0.317477, -0.46549463, -0.46549484, 0.682523)
+bones/5/rotation = Quaternion(0.21565528, 0.26030478, 0.16308099, 0.9268975)
+bones/16/rotation = Quaternion(-0.11231378, 0.16899715, 0.7493854, 0.6302755)
+bones/17/rotation = Quaternion(0.2104299, -0.13795316, -0.5149081, 0.8194864)
+bones/23/rotation = Quaternion(0.14992058, -0.20504333, -0.14663067, 0.9560233)
+bones/26/rotation = Quaternion(0.04090349, -0.018085372, 0.0054090642, 0.99898475)
+bones/30/rotation = Quaternion(0.6323378, -0.55069906, -0.24161482, -0.48836643)
+bones/34/rotation = Quaternion(2.786329e-08, -0.6262841, -0.3759627, 0.68294966)
+bones/37/rotation = Quaternion(0.104989216, 0.7972031, 0.59305507, -0.041594986)
+bones/39/rotation = Quaternion(0.36328515, -0.36024565, -0.36024565, 0.7800449)
+bones/40/rotation = Quaternion(-0.11066783, 0.45224154, 0.2345878, 0.85334563)
+bones/44/rotation = Quaternion(0.20704854, 0.42607793, 0.74463093, -0.4702268)
+bones/54/rotation = Quaternion(-0.5595812, 0.1495699, 0.14956987, 0.801328)
+bones/56/rotation = Quaternion(-0.008006635, 0.1989182, 0.3766647, 0.904705)
+bones/61/rotation = Quaternion(-0.047425773, -0.2945085, -0.55767125, 0.7746086)
+bones/72/rotation = Quaternion(1.6763806e-08, -1.4901161e-08, -4.33065e-08, 1)
+bones/87/rotation = Quaternion(0.16817017, -1.0248942e-15, -6.2535204e-16, 0.98575807)
+bones/95/rotation = Quaternion(-0.24867457, -0.52659243, -0.5265925, 0.6193236)
+bones/96/rotation = Quaternion(-1.09896064e-07, -2.3283064e-07, -1.6763808e-08, 1)
+bones/102/rotation = Quaternion(0.2611041, -0.2704469, -0.070789866, 0.9239437)
+bones/109/rotation = Quaternion(-0.040689647, 0.5323739, 0.8247489, -0.18631133)
+
+[editable path="BigFknTree"]

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ckbrk4anqh7gt"]
+
+[ext_resource type="PackedScene" uid="uid://0qhqe88r75j2" path="res://SCENES/TestArea/CheckerBoardLevel.glb" id="1_xymfe"]
+[ext_resource type="PackedScene" uid="uid://cdxwpe1uwaqat" path="res://PLAYER/Player.tscn" id="2_7yji1"]
+
+[node name="TestArea" type="Node3D" unique_id=1704071640]
+
+[node name="CheckerBoardLevel" parent="." unique_id=1812853554 instance=ExtResource("1_xymfe")]
+
+[node name="StaticBody3D" parent="CheckerBoardLevel/Ground" parent_id_path=PackedInt32Array(1812853554, 308379302) index="0" unique_id=152597553]
+collision_mask = 16
+
+[node name="Player" parent="." unique_id=83541845 instance=ExtResource("2_7yji1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
+
+[editable path="CheckerBoardLevel"]

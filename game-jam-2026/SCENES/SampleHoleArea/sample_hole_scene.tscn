@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bupf2rqct8n1j"]
+
+[ext_resource type="Shader" uid="uid://6o0gkyqavlfp" path="res://GLOBAL_RESOURCES/Shaders/black_tunnel_shader/black_tunnel_shader.gdshader" id="1_w66bc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pp1bs"]
+render_priority = 0
+shader = ExtResource("1_w66bc")
+shader_parameter/hole_depth = 5.70000008493684
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_j7oc2"]
+material = SubResource("ShaderMaterial_pp1bs")
+size = Vector2(4, 4)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_j7oc2"]
+
+[node name="SampleHoleScene" type="Node3D" unique_id=122871927]
+
+[node name="HOLEMeshInstance3D" type="MeshInstance3D" parent="." unique_id=1524033558]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5451262, 0)
+mesh = SubResource("PlaneMesh_j7oc2")
+
+[node name="MoveMeIntoHoleMeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1664608375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95985126, -4.0699997, 0)
+mesh = SubResource("CapsuleMesh_j7oc2")
+
+[node name="FloorCSGBox3D" type="CSGBox3D" parent="." unique_id=687132517]
+size = Vector3(10, 1, 10)
+
+[node name="FloorCentreCutoutCSGBox3D2" type="CSGBox3D" parent="FloorCSGBox3D" unique_id=776838307]
+operation = 2
+size = Vector3(4, 1, 4)

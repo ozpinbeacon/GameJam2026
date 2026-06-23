@@ -1,0 +1,92 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://bere7nbbtc0qg"
+path="res://.godot/imported/SingleLanternPost.glb-19082456e212df924f6b0c754cfb6d1a.scn"
+
+[deps]
+
+source_file="res://SCENES/HedgeMaze/Props/LanternPosts/SingleLanternPost.glb"
+dest_files=["res://.godot/imported/SingleLanternPost.glb-19082456e212df924f6b0c754cfb6d1a.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/root_script=null
+mesh_library/use_node_names_as_mesh_names=false
+array_mesh/deduplicate_surfaces=true
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
+_subresources={
+"materials": {
+"BlackPost": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://SCENES/HedgeMaze/Props/LanternPosts/Materials/BlackPost.tres",
+"use_external/path": "uid://dg0yyw2k4p8ub"
+},
+"Glass": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://SCENES/HedgeMaze/Props/LanternPosts/Materials/Glass.tres",
+"use_external/path": "uid://dyc48d53eig2l"
+},
+"Glow": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://SCENES/HedgeMaze/Props/LanternPosts/Materials/Glow.tres",
+"use_external/path": "uid://bwalyky68a2hl"
+}
+},
+"meshes": {
+"SingleLanternPost_Glow": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://SCENES/HedgeMaze/Props/LanternPosts/Meshes/SingleLanternPost_Glow.res",
+"save_to_file/path": "uid://cp05c438ot581"
+},
+"SingleLanternPost_Lantern": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://SCENES/HedgeMaze/Props/LanternPosts/Meshes/SingleLanternPost_Lantern.res",
+"save_to_file/path": "uid://j3t21jwq1ueb"
+},
+"SingleLanternPost_Post": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://SCENES/HedgeMaze/Props/LanternPosts/Meshes/SingleLanternPost_Post.res",
+"save_to_file/path": "uid://cjrtijkg021dj"
+}
+}
+}
+gltf/naming_version=2
+gltf/embedded_image_handling=1
+gltf/texture_map_mode=1

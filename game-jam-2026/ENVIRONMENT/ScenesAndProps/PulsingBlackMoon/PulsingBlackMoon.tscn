@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cpiygrph2c5fm"]
+
+[ext_resource type="Shader" uid="uid://qpcxdc5riwg" path="res://GLOBAL_RESOURCES/Shaders/liquid_shader/liquid_shader.gdshader" id="2_snwi4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_layk3"]
+render_priority = 0
+shader = ExtResource("2_snwi4")
+shader_parameter/albedo = Color(2.454227, 0, 0, 1)
+shader_parameter/gravity = Vector3(0, 0, 0)
+shader_parameter/flow_speed = 0.1
+shader_parameter/flow_scale = 200.0
+shader_parameter/amplitude = 180.0
+shader_parameter/thickness = 10.0
+shader_parameter/duty_cycle = 15.0
+shader_parameter/global_time_offset = 0.0
+shader_parameter/bias_min_y = 0.0
+shader_parameter/bias_max_y = 0.0
+shader_parameter/bias_direction_strength = 0.0
+shader_parameter/force_messy = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_pb32r"]
+material = SubResource("ShaderMaterial_layk3")
+radius = 10.0
+height = 20.0
+radial_segments = 32
+rings = 16
+
+[node name="PulsingBlackMoon" type="Node3D" unique_id=784091822]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=85177836]
+transform = Transform3D(1, 0, 0, 0, -0.20722207, 0.97829396, 0, -0.97829396, -0.20722207, 0, 0, 0)
+mesh = SubResource("SphereMesh_pb32r")

@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://ckbrk4anqh7gt"]
+
+[ext_resource type="ArrayMesh" uid="uid://dox3l7y1gjym0" path="res://SCENES/TestArea/Meshes/CheckerBoardLevel_Ground.res" id="1_7yji1"]
+[ext_resource type="PackedScene" uid="uid://cdxwpe1uwaqat" path="res://PLAYER/Player.tscn" id="2_7yji1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7yji1"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_ev5wt"]
+sky_material = SubResource("ProceduralSkyMaterial_7yji1")
+
+[sub_resource type="Environment" id="Environment_04bxk"]
+background_mode = 2
+sky = SubResource("Sky_ev5wt")
+glow_enabled = true
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ucm5r"]
+data = PackedVector3Array(-50, 0, 50, 50, 0, -50, -50, 0, -50, -50, 0, 50, 50, 0, 50, 50, 0, -50, -50, -2.454245, 50, 50, -2.454245, -50, 50, -2.454245, 50, -50, -2.454245, 50, -50, -2.454245, -50, 50, -2.454245, -50, 50, 0, 50, 50, -2.454245, -50, 50, 0, -50, 50, 0, 50, 50, -2.454245, 50, 50, -2.454245, -50, -50, 0, -50, -50, -2.454245, 50, -50, 0, 50, -50, 0, -50, -50, -2.454245, -50, -50, -2.454245, 50, 50, 0, -50, -50, -2.454245, -50, -50, 0, -50, 50, 0, -50, 50, -2.454245, -50, -50, -2.454245, -50, -50, 0, 50, 50, -2.454245, 50, 50, 0, 50, -50, 0, 50, -50, -2.454245, 50, 50, -2.454245, 50)
+
+[node name="TestArea" type="Node3D" unique_id=1704071640]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1740675159]
+environment = SubResource("Environment_04bxk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1013760510]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=609065088]
+mesh = ExtResource("1_7yji1")
+
+[node name="Player" parent="." unique_id=83541845 instance=ExtResource("2_7yji1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=415304659]
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1509712501]
+shape = SubResource("ConcavePolygonShape3D_ucm5r")
