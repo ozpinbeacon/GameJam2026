@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://danks87irmxh8"]
 
-[ext_resource type="PackedScene" uid="uid://qotj2tagmijk" path="res://player.tscn" id="1_glv2v"]
-[ext_resource type="Script" uid="uid://bmkqtk6np1set" path="res://main.gd" id="1_r0du0"]
-[ext_resource type="Script" uid="uid://cns1eptej2qn" path="res://player.gd" id="2_uu6xs"]
-[ext_resource type="Script" uid="uid://sge1t4mef8ok" path="res://debuglabel.gd" id="4_cm0pq"]
-[ext_resource type="Script" uid="uid://cag0reypfjeec" path="res://torch.gd" id="5_fos0i"]
-[ext_resource type="Script" uid="uid://de4kiibn0bicj" path="res://game_state.gd" id="6_3dxm6"]
-[ext_resource type="Script" uid="uid://bpofbdd5brixm" path="res://poster.gd" id="7_trn2v"]
-[ext_resource type="PackedScene" uid="uid://qeikjdj32f1g" path="res://Enemy/enemy.tscn" id="8_03owx"]
-[ext_resource type="Shader" uid="uid://c5fdlv05myau7" path="res://Main.gdshader" id="8_trn2v"]
-[ext_resource type="Script" uid="uid://vhrv1y83xai6" path="res://state.gd" id="9_wkp8b"]
-[ext_resource type="Script" uid="uid://bytd2j801k0nh" path="res://pause_menu.gd" id="10_20pc6"]
+[ext_resource type="PackedScene" uid="uid://qotj2tagmijk" path="res://Characters/Player/player.tscn" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://bmkqtk6np1set" path="res://Scenes/Main/main.gd" id="1_r0du0"]
+[ext_resource type="Script" uid="uid://cns1eptej2qn" path="res://Characters/Player/player.gd" id="2_uu6xs"]
+[ext_resource type="Script" uid="uid://sge1t4mef8ok" path="res://Scenes/Main/debuglabel.gd" id="4_cm0pq"]
+[ext_resource type="Script" uid="uid://cag0reypfjeec" path="res://Scenes/Main/torch.gd" id="5_fos0i"]
+[ext_resource type="Script" uid="uid://de4kiibn0bicj" path="res://Global/game_state.gd" id="6_3dxm6"]
+[ext_resource type="Script" uid="uid://bpofbdd5brixm" path="res://Scenes/Main/poster.gd" id="7_trn2v"]
+[ext_resource type="PackedScene" uid="uid://qeikjdj32f1g" path="res://Characters/Enemy/enemy.tscn" id="8_03owx"]
+[ext_resource type="Shader" uid="uid://c5fdlv05myau7" path="res://Scenes/Main/Main.gdshader" id="8_trn2v"]
+[ext_resource type="Script" uid="uid://vhrv1y83xai6" path="res://Global/state.gd" id="9_wkp8b"]
+[ext_resource type="Script" uid="uid://bytd2j801k0nh" path="res://Scenes/Main/pause_menu.gd" id="10_20pc6"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_aex8v"]
 vertices = PackedVector3Array(-7.0023727, 0.20000005, -19.5, -6.0023727, 0.20000005, -19.5, -6.0023727, 0.20000005, -29, -7.7523727, 0.20000005, -18.75, -29.002373, 0.20000005, -29, -29.002373, 0.20000005, -17.5, -7.7523727, 0.20000005, -17.75, -5.0023727, 0.20000005, -15.5, -6.0023727, 0.20000005, -15.5, -6.0023727, 0.20000005, -11.75, -4.2523727, 0.20000005, -16.25, 5.4976273, 0.20000005, -11.75, 16.497627, 0.20000005, -22, 17.497627, 0.20000005, -22, 17.497627, 0.20000005, -29, 15.747627, 0.20000005, -21.25, -5.0023727, 0.20000005, -19.5, -4.2523727, 0.20000005, -18.75, 8.747627, 0.20000005, -10.5, 16.747627, 0.20000005, -18, 15.747627, 0.20000005, -18.75, 7.9976273, 0.20000005, -11.5, 18.497627, 0.20000005, -22, 19.247627, 0.20000005, -21.25, 28.997627, 0.20000005, -20, 28.997627, 0.20000005, -29, 19.247627, 0.20000005, -20, 19.247627, 0.20000005, -18.75, 18.497627, 0.20000005, -18, 8.747627, 0.20000005, -9.5, 7.9976273, 0.20000005, -8.75, 7.9976273, 0.20000005, 4.5, 8.747627, 0.20000005, 5.25, 28.997627, 0.20000005, 6, 6.7476273, 0.20000005, -8.5, 6.7476273, 0.20000005, 4.5, 8.747627, 0.20000005, 6, -7.0023727, 0.20000005, -15.5, -7.7523727, 0.20000005, -11.5, -8.502373, 0.20000005, -10.75, -7.7523727, 0.20000005, -16.25, -29.002373, 0.20000005, -10, -8.502373, 0.20000005, -10, -7.7523727, 0.20000005, 4.5, -6.7523727, 0.20000005, 4.5, -6.7523727, 0.20000005, -8.5, -7.7523727, 0.20000005, -8.75, -29.002373, 0.20000005, 6, -8.502373, 0.20000005, 6, -8.502373, 0.20000005, 5.25, -13.486481, 0.39999986, -1.5119553, -15.021493, 0.20000005, -1.5229416, -12.006624, 0.20000005, -2.9937992, -11.996311, 0.20000005, -0.008134842, -1.2523727, 0.20000005, 8, -0.25237274, 0.20000005, 8, -0.25237274, 0.20000005, 7.5, -7.7523727, 0.20000005, 7.5, -8.502373, 0.20000005, 6.75, -2.0023727, 0.20000005, 8.75, -2.0023727, 0.20000005, 11.25, -1.2523727, 0.20000005, 12, -29.002373, 0.20000005, 29, -0.25237274, 0.20000005, 29, -0.25237274, 0.20000005, 12, 0.74762726, 0.20000005, 8, 7.9976273, 0.20000005, 7.5, 8.747627, 0.20000005, 6.75, 1.4976273, 0.20000005, 8.75, 1.4976273, 0.20000005, 11.25, 0.74762726, 0.20000005, 12, 28.997627, 0.20000005, 29)
@@ -228,7 +228,7 @@ mesh = SubResource("PlaneMesh_aex8v")
 shape = SubResource("BoxShape3D_hrhyn")
 
 [node name="Enemy" parent="Main" unique_id=1409531793 instance=ExtResource("8_03owx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.313, 1, -23.79443)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.78622055, 1, -16.05854)
 
 [node name="PauseMenu" type="Control" parent="." unique_id=1111363675]
 process_mode = 2

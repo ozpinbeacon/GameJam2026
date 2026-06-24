@@ -3,24 +3,28 @@ class_name Enemy extends CharacterBody3D
 const BASE_SPEED = 2
 var current_speed = BASE_SPEED
 
+@export var debug = false
+
 @onready var fsm = $StateMachine
 @onready var nav_agent = $NavigationAgent3D
-@onready var vision = $Vision
-@onready var debug_vision = $Vision/Debug/MeshInstance3D
+@onready var peripheral_vision = $Vision/Peripheral
+@onready var targeted_vision = $Vision/Targeted
 
 @export var player: Node
-	
+
+func _ready() -> void:
+	peripheral_vision.body_entered.connect(snap_vision)
+
 func _physics_process(delta) -> void:
 	velocity = Vector3.ZERO
 	
-	if vision.has_overlapping_bodies() and vision.get_overlapping_bodies().any(func(body): return is_instance_of(body, Player)):
-		var player_index = vision.get_overlapping_bodies().find_custom(func(body): return is_instance_of(body, Player))
-		player = vision.get_overlapping_bodies().get(player_index)
+	if targeted_vision.is_colliding() and targeted_vision.get_collider() is Player:
+		player = targeted_vision.get_collider()
 		fsm._transition_to_next_state(EnemyState.CHASING, {"player": player})
 	
 	fsm.state.physics_process(delta)
 
-	if fsm.state.label in [EnemyState.PATROLLING, EnemyState.INVESTIGATING, EnemyState.CHASING]:
+	if fsm.state.label in [EnemyState.PATROLLING, EnemyState.INVESTIGATING, EnemyState.CHASING] and not debug:
 		var next_nav_point = nav_agent.get_next_path_position()
 		velocity = (next_nav_point - global_position).normalized() * current_speed
 		
@@ -34,3 +38,7 @@ func _physics_process(delta) -> void:
 
 func get_current_target() -> Vector3:
 	return fsm.state.target
+
+func snap_vision(body) -> void:
+	targeted_vision.target_position = targeted_vision.to_local(body.global_position)
+	

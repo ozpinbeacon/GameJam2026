@@ -14,7 +14,7 @@ func enter(payload: Dictionary = {}) -> void:
 	enemy.nav_agent.set_target_position(player.global_position)
 
 func physics_process(_delta: float) -> void:
-	if not enemy.vision.overlaps_body(player):
+	if not enemy.targeted_vision.is_colliding() or not enemy.targeted_vision.get_collider() is Player:
 		if target == Vector3.ZERO:
 			target = player.global_position
 			enemy.nav_agent.set_target_position(target)

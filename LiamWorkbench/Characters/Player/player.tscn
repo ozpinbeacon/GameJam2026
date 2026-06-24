@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://qotj2tagmijk"]
 
-[ext_resource type="Script" uid="uid://jwcoclirw8rm" path="res://Player/player_torch.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://jwcoclirw8rm" path="res://Characters/Player/player_torch.gd" id="1_4flbx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
 
@@ -16,7 +16,6 @@ albedo_color = Color(0, 1, 1, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=371964176]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-visible = false
 shape = SubResource("CapsuleShape3D_4flbx")
 
 [node name="Head" type="Node3D" parent="." unique_id=634664957]
