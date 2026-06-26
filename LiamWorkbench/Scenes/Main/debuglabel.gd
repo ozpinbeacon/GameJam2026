@@ -11,7 +11,7 @@ extends Label
 func _process(_delta: float) -> void:
 	text = "Game State: " + _game_state.get_state() + "\n"
 	text += "\n"
-	text += "Player State: " + _player.get_state() + "\n"
+	text += "Player State: " + _player.fsm.state.label + "\n"
 	text += "Player Position: " + str(_player.global_position) + "\n"
 	text += "Velocity X" + str(_player.velocity.x) + "\n"
 	text += "Velocity Y" + str(_player.velocity.y) + "\n"

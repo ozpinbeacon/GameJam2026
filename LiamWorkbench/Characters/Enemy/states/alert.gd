@@ -2,7 +2,7 @@ extends EnemyState
 
 func _ready() -> void:
 	super._ready()
-	label = "Alert"
+	label = EnemyState.ALERT
 
 func enter(payload: Dictionary = {}) -> void:
 	var alert_target = payload.get("alert_target")

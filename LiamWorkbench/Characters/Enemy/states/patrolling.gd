@@ -5,7 +5,7 @@ var next_patrol_point = 0
 
 func _ready() -> void:
 	super._ready()
-	label = "Patrolling"
+	label = EnemyState.PATROLLING
 
 func enter(payload: Dictionary = {}) -> void:
 	Events.player_noise.connect(noise_heard)

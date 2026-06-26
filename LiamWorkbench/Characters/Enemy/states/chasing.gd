@@ -5,7 +5,7 @@ var player_last_seen = 600
 
 func _ready() -> void:
 	super._ready()
-	label = "Chasing"
+	label = EnemyState.CHASING
 
 func enter(payload: Dictionary = {}) -> void:
 	enemy.current_speed = 5
@@ -14,6 +14,9 @@ func enter(payload: Dictionary = {}) -> void:
 	enemy.nav_agent.set_target_position(player.global_position)
 
 func physics_process(_delta: float) -> void:
+	if player in enemy.peripheral_vision.get_overlapping_bodies():
+		enemy.snap_vision(player)
+	
 	if not enemy.targeted_vision.is_colliding() or not enemy.targeted_vision.get_collider() is Player:
 		if target == Vector3.ZERO:
 			target = player.global_position

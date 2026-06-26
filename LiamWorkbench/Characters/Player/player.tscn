@@ -1,6 +1,13 @@
 [gd_scene format=3 uid="uid://qotj2tagmijk"]
 
 [ext_resource type="Script" uid="uid://jwcoclirw8rm" path="res://Characters/Player/player_torch.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://d4hewtsnn2ctv" path="res://Global/statemachine.gd" id="2_j341n"]
+[ext_resource type="Script" uid="uid://cgw2e7g3245ho" path="res://Characters/Player/states/idle.gd" id="3_cue0d"]
+[ext_resource type="Script" uid="uid://dqbaskg2o5nnu" path="res://Characters/Player/states/walking.gd" id="4_bqsbk"]
+[ext_resource type="Script" uid="uid://c1htvagogacfc" path="res://Characters/Player/states/running.gd" id="5_xf5fp"]
+[ext_resource type="Script" uid="uid://bv8qw6jrdor8n" path="res://Characters/Player/states/crouching.gd" id="6_osktb"]
+[ext_resource type="Script" uid="uid://vuev4hn8m7rm" path="res://Characters/Player/states/jumping.gd" id="7_7vev3"]
+[ext_resource type="Script" uid="uid://dvr6c1g6rf8ts" path="res://Characters/Player/states/falling.gd" id="8_klx3t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
 
@@ -25,9 +32,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
 [node name="Cursor" type="RayCast3D" parent="Head/Camera3D" unique_id=1784572006]
 transform = Transform3D(3, 0, 0, 0, -1.3113416e-07, -3, 0, 3, -1.3113416e-07, 0, 0, 0)
+visible = false
 debug_shape_custom_color = Color(0, 1, 1, 1)
 
 [node name="CursorLabel" type="Label" parent="Head/Camera3D" unique_id=939075513]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -60,3 +69,24 @@ spot_angle = 27.87
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.5, 1.2, -0.5)
 mesh = SubResource("CylinderMesh_aex8v")
 surface_material_override/0 = SubResource("StandardMaterial3D_sh265")
+
+[node name="StateMachine" type="Node" parent="." unique_id=970603131]
+script = ExtResource("2_j341n")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=945301363]
+script = ExtResource("3_cue0d")
+
+[node name="Walking" type="Node" parent="StateMachine" unique_id=1532108835]
+script = ExtResource("4_bqsbk")
+
+[node name="Running" type="Node" parent="StateMachine" unique_id=1156789901]
+script = ExtResource("5_xf5fp")
+
+[node name="Crouching" type="Node" parent="StateMachine" unique_id=1993847470]
+script = ExtResource("6_osktb")
+
+[node name="Jumping" type="Node" parent="StateMachine" unique_id=297081293]
+script = ExtResource("7_7vev3")
+
+[node name="Falling" type="Node" parent="StateMachine" unique_id=1017361409]
+script = ExtResource("8_klx3t")

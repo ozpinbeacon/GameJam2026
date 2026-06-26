@@ -2,7 +2,7 @@ extends EnemyState
 
 func _ready() -> void:
 	super._ready()
-	label = "Investigating"
+	label = EnemyState.INVESTIGATING
 
 func enter(payload: Dictionary = {}) -> void:
 	enemy.current_speed = 5
