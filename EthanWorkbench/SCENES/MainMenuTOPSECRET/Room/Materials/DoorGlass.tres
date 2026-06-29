@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://d1qgq8j84e6ox"]
+
+[resource]
+resource_name = "DoorGlass"
+transparency = 4
+cull_mode = 2
+albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 0.27881038)
+metallic = 0.85873604
+roughness = 0.5
