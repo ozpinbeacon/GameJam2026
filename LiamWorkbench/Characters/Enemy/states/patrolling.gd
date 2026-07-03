@@ -40,4 +40,5 @@ func noise_heard(event: Dictionary) -> void:
 			pass
 
 func exit() -> void:
+	Events.player_noise.disconnect(noise_heard)
 	target = Vector3.ZERO
