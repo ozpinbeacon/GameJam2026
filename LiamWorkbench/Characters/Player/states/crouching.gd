@@ -8,8 +8,8 @@ func _ready() -> void:
 func enter(_dict = {}) -> void:
 	player.acceleration = player.CROUCH_SPEED
 	player.speed = player.CROUCH_SPEED
+	player.animation_player.play("CROUCH")
 	player.crouched = true
-	player.head.position.y -= player.CROUCH_DIFF
 
 func input(event) -> void:
 	if event.is_action_pressed("crouch"):
@@ -28,5 +28,5 @@ func physics_process(delta: float) -> void:
 
 func exit() -> void:
 	# Play an animation
+	player.animation_player.play("UNCROUCH")
 	player.crouched = false
-	player.head.position.y += player.CROUCH_DIFF

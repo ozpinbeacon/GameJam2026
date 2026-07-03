@@ -3,11 +3,10 @@ class_name Player extends CharacterBody3D
 # Character base stats - constants
 const JUMP_IMPULSE = 5
 const WALK_SPEED = 5
-const RUN_SPEED = 8
+const RUN_SPEED = 12
 const CROUCH_SPEED = 3
 const AIR_SPEED = 3
-const CROUCH_DIFF = .4
-
+var CROUCH_DIFF = .5
 
 # Character base stats - variables
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -27,8 +26,11 @@ var crouched = false
 # State Machine
 @onready var fsm = $StateMachine
 
+# Animation Player
+@onready var animation_player = $AnimationPlayer
+
 # Character item variables
-@onready var flashlight = get_node("Hand/Torch")
+@onready var flashlight = $Hand/Torch
 
 # Movement control variables
 var direction = Vector3.ZERO
@@ -36,7 +38,7 @@ var head_y_axis = 0.0
 var camera_x_axis = 0.0
 
 # Character action variables
-var has_flashlight = false
+@export var has_flashlight: bool = false
 	
 # One-time events
 func _unhandled_input(event):
@@ -70,13 +72,13 @@ func _physics_process(delta):
 
 	fsm.state.physics_process(delta)
 
-	# Lerp camera movement
-	head.rotation.y = lerp(head.rotation.y, -deg_to_rad(head_y_axis), camera_acceleration * delta)
-	camera.rotation.x = clampf(lerp(camera.rotation.x, -deg_to_rad(camera_x_axis), camera_acceleration * delta), -deg_to_rad(70), deg_to_rad(70))
+	# Lerp hand movement
+	hand.rotation.y = lerp(hand.rotation.y, -deg_to_rad(head_y_axis), camera_acceleration * delta)
+	hand.rotation.x = lerp(hand.rotation.x, -deg_to_rad(camera_x_axis), camera_acceleration * delta)
 
-	# Instant hand movement
-	hand.rotation.y = -deg_to_rad(head_y_axis)
-	hand.rotation.x = -deg_to_rad(camera_x_axis)
+	# Camera movement
+	head.rotation.y = -deg_to_rad(head_y_axis)
+	camera.rotation.x = clampf(-deg_to_rad(camera_x_axis), -deg_to_rad(70), deg_to_rad(70))
 	
 	# Move and slide
 	move_and_slide()

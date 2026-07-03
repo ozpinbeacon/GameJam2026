@@ -1,0 +1,3 @@
+class_name ProgressionItem extends InteractableObject
+
+signal interaction

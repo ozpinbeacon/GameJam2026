@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dg0yyw2k4p8ub"]
+
+[resource]
+resource_name = "BlackPost"
+cull_mode = 2
+albedo_color = Color(0.21834983, 0.21834983, 0.21834983, 1)
+metallic = 1.0
+roughness = 0.732
+emission_enabled = true
+emission = Color(0.1, 0.1, 0.1, 1)
+emission_energy_multiplier = 0.3

@@ -1,6 +1,8 @@
 extends EnemyState
 
-var patrol_points: Array[Vector3] = [Vector3(21.8, 0, 23.5), Vector3(-23, 0, 23), Vector3(-23, 0, 0), Vector3(20, 0, 0), Vector3(20, 0, -20), Vector3(-20, 0, -20)]
+#var patrol_points: Array[Vector3] = [Vector3(65.6, 0, -77.661), Vector3(-61.59, 0, -42.146), Vector3(0, 0, 0), Vector3(-52.951, 0, 59.021)]
+# Debug patrol points to test pathfinding
+var patrol_points: Array[Vector3] = [Vector3(0, 0, 22.763), Vector3(-8.793, 0, -0.123), Vector3(0, 0, 12.348), Vector3(0, 0, -25.69)]
 var next_patrol_point = 0
 
 func _ready() -> void:
@@ -14,7 +16,7 @@ func enter(payload: Dictionary = {}) -> void:
 
 func physics_process(_delta: float) -> void:
 	if enemy.nav_agent.is_target_reached():
-		if next_patrol_point == 6:
+		if next_patrol_point == 4:
 			next_patrol_point = 0
 		target = patrol_points[next_patrol_point]
 		enemy.nav_agent.set_target_position(target)
