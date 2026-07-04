@@ -1,5 +1,7 @@
 extends PlayerState
 
+# Go to appropriate state when input is registered
+
 func _ready() -> void:
 	super._ready()
 	label = PlayerState.IDLE

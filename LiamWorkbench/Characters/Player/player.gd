@@ -5,6 +5,7 @@ const CAMERA_CONTROLLER_ROTATION_SPEED = 3
 const CAMERA_MOUSE_SENSITIVITY = 0.25
 const CAMERA_ACCELERATION = 2
 
+# Variable for control method
 var mouse_keyboard_controls = true
 
 # Character base stats - constants
@@ -47,11 +48,20 @@ var camera_x_axis = 0.0
 
 # Gamepad movement
 func _process(delta):
-	head_y_axis += Input.get_action_strength("view_right") - Input.get_action_strength("view_left")
-	camera_x_axis += Input.get_action_strength("view_up") - Input.get_action_strength("view_down")
+	# Gamepad camera movement if gamepad is active input method
+	if not mouse_keyboard_controls:
+		head_y_axis += (Input.get_action_strength("view_right") - Input.get_action_strength("view_left")) * CAMERA_CONTROLLER_ROTATION_SPEED
+		camera_x_axis += (Input.get_action_strength("view_down") - Input.get_action_strength("view_up")) * CAMERA_CONTROLLER_ROTATION_SPEED
 
 # One-time events
 func _unhandled_input(event):
+	# Debug switch input methods, would likely prefer to implement in a menu rather than this
+	if event.is_action_pressed("switch_controls"):
+		if mouse_keyboard_controls:
+			mouse_keyboard_controls = false
+		else:
+			mouse_keyboard_controls = true
+	
 	# Base mouse movements
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and mouse_keyboard_controls:
 		head_y_axis += event.relative.x * CAMERA_MOUSE_SENSITIVITY
@@ -66,20 +76,24 @@ func _unhandled_input(event):
 		if cursor.is_colliding() and cursor.get_collider() is InteractableObject:
 			cursor.get_collider().interact()
 	
+	# Debug tool to get enemy attention, maybe could implement into actual mechanic
 	if event.is_action_pressed("yell"):
 		Events.player_noise.emit({"event_type": Events.NoiseType.YELL, "location": global_position})
-		
+	
+	# Current state input events
 	fsm.state.input(event)
 
 # Continuous events
 func _physics_process(delta):
+	
 	# If cursor is targeting an interactable item, show label
 	if cursor.is_colliding() and cursor.get_collider() is InteractableObject:
 		cursor_label.show()
 		cursor_label.text = cursor.get_collider().label
 	else:
 		cursor_label.hide()
-
+	
+	# Current state physics process
 	fsm.state.physics_process(delta)
 
 	# Lerp hand movement
@@ -93,6 +107,7 @@ func _physics_process(delta):
 	# Move and slide
 	move_and_slide()	
 
+# Helper function to avoid lerp slowing to approach zero
 func lerp_snap(source: Vector3, destination: Vector3, weight: float) -> Vector3:
 	var lerp_result = source.lerp(destination, weight)
 	if lerp_result.is_zero_approx():

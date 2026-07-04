@@ -196,12 +196,5 @@ offset_bottom = 48.0
 text = "Velocity: "
 script = ExtResource("14_eod0s")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=217954729]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 200.31451, 0)
-visible = false
-light_energy = 16.0
-light_volumetric_fog_energy = 0.0
-sky_mode = 1
-
 [node name="DebugPointer" type="Node3D" parent="." unique_id=127956382]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.032136917, 0, -25.689573)

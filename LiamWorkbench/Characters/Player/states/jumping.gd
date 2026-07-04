@@ -9,6 +9,7 @@ func enter(_dict = {}) -> void:
 	player.velocity.y += player.JUMP_IMPULSE
 	#player.acceleration = 3
 
+# While vertical velocity is positive, remain in jumping state, transition to falling once velocity is negative
 func physics_process(delta: float) -> void:
 	player.velocity.y -= player.gravity * delta
 	

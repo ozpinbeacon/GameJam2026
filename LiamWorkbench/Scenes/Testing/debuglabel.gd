@@ -10,6 +10,7 @@ extends Label
 
 func _process(_delta: float) -> void:
 	text = "Game State: " + _game_state.get_state() + "\n"
+	text = "Current controls: " + "MKB" if _player.mouse_keyboard_controls else "Controller"
 	text += "\n"
 	text += "Player State: " + _player.fsm.state.label + "\n"
 	text += "Player Position: " + str(_player.global_position) + "\n"

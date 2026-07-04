@@ -27,6 +27,7 @@ func key_item_collected(sender):
 		4:
 			game_progression = Progression.AllItems
 
+# Helper function for debugging current progression state
 func get_state() -> String:
 	match self.game_progression:
 		Progression.None:

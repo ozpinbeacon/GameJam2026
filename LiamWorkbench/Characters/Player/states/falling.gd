@@ -5,6 +5,7 @@ func _ready() -> void:
 	super._ready()
 	label = PlayerState.FALLING
 
+# Allow the player to move in mid-air and go to appropriate state once on the ground
 func physics_process(delta: float) -> void:
 	player.velocity.y -= player.gravity * delta
 	

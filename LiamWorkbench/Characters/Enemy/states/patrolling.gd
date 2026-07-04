@@ -9,11 +9,13 @@ func _ready() -> void:
 	super._ready()
 	label = EnemyState.PATROLLING
 
+# Connect to player noise signal and set initial patrol point
 func enter(payload: Dictionary = {}) -> void:
 	Events.player_noise.connect(noise_heard)
 	#enemy.animation_player.play("patrolling")
 	enemy.nav_agent.set_target_position(patrol_points[next_patrol_point])
 
+# Cycle through patrol points
 func physics_process(_delta: float) -> void:
 	if enemy.nav_agent.is_target_reached():
 		if next_patrol_point == 4:
@@ -22,6 +24,7 @@ func physics_process(_delta: float) -> void:
 		enemy.nav_agent.set_target_position(target)
 		next_patrol_point += 1
 
+# Player noise function, different noises have different ranges for whether the enemy will investigate or not
 func noise_heard(event: Dictionary) -> void:
 	var event_type: Events.NoiseType = event["event_type"]
 	var event_location: Vector3 = event["location"]
@@ -39,6 +42,7 @@ func noise_heard(event: Dictionary) -> void:
 		_:
 			pass
 
+# Disconnect signal
 func exit() -> void:
 	Events.player_noise.disconnect(noise_heard)
 	target = Vector3.ZERO
