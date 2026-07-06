@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://jwcoclirw8rm" path="res://Characters/Player/player_torch.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://cns1eptej2qn" path="res://Characters/Player/player.gd" id="1_r5ew0"]
-[ext_resource type="Script" uid="uid://d4hewtsnn2ctv" path="res://Global/statemachine.gd" id="2_j341n"]
+[ext_resource type="Script" uid="uid://d4hewtsnn2ctv" path="res://Global/state_machine.gd" id="2_j341n"]
 [ext_resource type="Script" uid="uid://cgw2e7g3245ho" path="res://Characters/Player/states/idle.gd" id="3_cue0d"]
 [ext_resource type="Script" uid="uid://dqbaskg2o5nnu" path="res://Characters/Player/states/walking.gd" id="4_bqsbk"]
 [ext_resource type="Script" uid="uid://c1htvagogacfc" path="res://Characters/Player/states/running.gd" id="5_xf5fp"]

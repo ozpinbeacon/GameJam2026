@@ -1,12 +1,12 @@
 class_name Player extends CharacterBody3D
 
 # Control constants
-const CAMERA_CONTROLLER_ROTATION_SPEED = 3
-const CAMERA_MOUSE_SENSITIVITY = 0.25
-const CAMERA_ACCELERATION = 2
+var CAMERA_CONTROLLER_ROTATION_SPEED = Settings.player.CAMERA_CONTROLLER_ROTATION_SPEED
+var CAMERA_MOUSE_SENSITIVITY = Settings.player.CAMERA_MOUSE_SENSITIVITY
+var CAMERA_ACCELERATION = Settings.player.CAMERA_ACCELERATION
 
 # Variable for control method
-var mouse_keyboard_controls = true
+var MOUSE_KEYBOARD_CONTROLS = Settings.player.MOUSE_KEYBOARD_CONTROLS
 
 # Character base stats - constants
 const JUMP_IMPULSE = 5
@@ -49,7 +49,7 @@ var camera_x_axis = 0.0
 # Gamepad movement
 func _process(delta):
 	# Gamepad camera movement if gamepad is active input method
-	if not mouse_keyboard_controls:
+	if not MOUSE_KEYBOARD_CONTROLS:
 		head_y_axis += (Input.get_action_strength("view_right") - Input.get_action_strength("view_left")) * CAMERA_CONTROLLER_ROTATION_SPEED
 		camera_x_axis += (Input.get_action_strength("view_down") - Input.get_action_strength("view_up")) * CAMERA_CONTROLLER_ROTATION_SPEED
 
@@ -57,13 +57,13 @@ func _process(delta):
 func _unhandled_input(event):
 	# Debug switch input methods, would likely prefer to implement in a menu rather than this
 	if event.is_action_pressed("switch_controls"):
-		if mouse_keyboard_controls:
-			mouse_keyboard_controls = false
+		if MOUSE_KEYBOARD_CONTROLS:
+			MOUSE_KEYBOARD_CONTROLS = false
 		else:
-			mouse_keyboard_controls = true
+			MOUSE_KEYBOARD_CONTROLS = true
 	
 	# Base mouse movements
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and mouse_keyboard_controls:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and MOUSE_KEYBOARD_CONTROLS:
 		head_y_axis += event.relative.x * CAMERA_MOUSE_SENSITIVITY
 		camera_x_axis += event.relative.y * CAMERA_MOUSE_SENSITIVITY
 	

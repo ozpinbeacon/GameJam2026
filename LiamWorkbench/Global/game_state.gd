@@ -12,7 +12,7 @@ func _ready():
 	game_progression = Progression.None
 	var event_items = get_parent().find_children("*", "ProgressionItem")
 	for item in event_items:
-		item.interaction.connect(key_item_collected)
+		item.interacted.connect(key_item_collected)
 
 # Receive signal when a poster is collected
 func key_item_collected(sender):

@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Events="*uid://bn5cjpmos8bgb"
+Settings="*uid://dk3cofwsorxc3"
 
 [display]
 
