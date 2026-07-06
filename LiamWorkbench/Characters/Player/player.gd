@@ -1,16 +1,26 @@
 class_name Player extends CharacterBody3D
 
-# Character animation states 
-enum States {IDLE, WALKING, RUNNING, CROUCHING, JUMPING, FALLING, NULL}
+# Control constants
+var CAMERA_CONTROLLER_ROTATION_SPEED = Settings.player.CAMERA_CONTROLLER_ROTATION_SPEED
+var CAMERA_MOUSE_SENSITIVITY = Settings.player.CAMERA_MOUSE_SENSITIVITY
+var CAMERA_ACCELERATION = Settings.player.CAMERA_ACCELERATION
 
-# Base character variables
-var state: States = States.IDLE
+# Variable for control method
+var MOUSE_KEYBOARD_CONTROLS = Settings.player.MOUSE_KEYBOARD_CONTROLS
+
+# Character base stats - constants
+const JUMP_IMPULSE = 5
+const WALK_SPEED = 5
+const RUN_SPEED = 12
+const CROUCH_SPEED = 3
+const AIR_SPEED = 3
+var CROUCH_DIFF = .5
+
+# Character base stats - variables
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var camera_sensitivity = 0.25
-var camera_acceleration = 2
-var jump_impulse = 5
-@export var player_speed = 5
-@export var player_acceleration = 5
+var acceleration = WALK_SPEED
+var speed = WALK_SPEED
+var crouched = false
 
 # Character part variables
 @onready var head = $Head
@@ -19,8 +29,14 @@ var jump_impulse = 5
 @onready var cursor_label = $Head/Camera3D/CursorLabel
 @onready var hand = $Hand
 
+# State Machine
+@onready var fsm = $StateMachine
+
+# Animation Player
+@onready var animation_player = $AnimationPlayer
+
 # Character item variables
-@onready var flashlight = get_node("Hand/Torch")
+@onready var flashlight = $Hand/Torch
 
 # Movement control variables
 var direction = Vector3.ZERO
@@ -28,14 +44,28 @@ var head_y_axis = 0.0
 var camera_x_axis = 0.0
 
 # Character action variables
-var has_flashlight = false
-	
+@export var has_flashlight: bool = false
+
+# Gamepad movement
+func _process(delta):
+	# Gamepad camera movement if gamepad is active input method
+	if not MOUSE_KEYBOARD_CONTROLS:
+		head_y_axis += (Input.get_action_strength("view_right") - Input.get_action_strength("view_left")) * CAMERA_CONTROLLER_ROTATION_SPEED
+		camera_x_axis += (Input.get_action_strength("view_down") - Input.get_action_strength("view_up")) * CAMERA_CONTROLLER_ROTATION_SPEED
+
 # One-time events
-func _input(event):
+func _unhandled_input(event):
+	# Debug switch input methods, would likely prefer to implement in a menu rather than this
+	if event.is_action_pressed("switch_controls"):
+		if MOUSE_KEYBOARD_CONTROLS:
+			MOUSE_KEYBOARD_CONTROLS = false
+		else:
+			MOUSE_KEYBOARD_CONTROLS = true
+	
 	# Base mouse movements
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		head_y_axis += event.relative.x * camera_sensitivity
-		camera_x_axis += event.relative.y * camera_sensitivity
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and MOUSE_KEYBOARD_CONTROLS:
+		head_y_axis += event.relative.x * CAMERA_MOUSE_SENSITIVITY
+		camera_x_axis += event.relative.y * CAMERA_MOUSE_SENSITIVITY
 	
 	# Toggle flashlight if flashlight is acquired
 	if event.is_action_pressed("flashlight_toggle") and has_flashlight:
@@ -46,88 +76,41 @@ func _input(event):
 		if cursor.is_colliding() and cursor.get_collider() is InteractableObject:
 			cursor.get_collider().interact()
 	
+	# Debug tool to get enemy attention, maybe could implement into actual mechanic
 	if event.is_action_pressed("yell"):
 		Events.player_noise.emit({"event_type": Events.NoiseType.YELL, "location": global_position})
+	
+	# Current state input events
+	fsm.state.input(event)
 
 # Continuous events
 func _physics_process(delta):
+	
 	# If cursor is targeting an interactable item, show label
 	if cursor.is_colliding() and cursor.get_collider() is InteractableObject:
 		cursor_label.show()
 		cursor_label.text = cursor.get_collider().label
 	else:
 		cursor_label.hide()
-		
-	# State switch
-	if not is_on_floor() and velocity.y > 0:
-		set_state(States.JUMPING)
-	elif not is_on_floor() and velocity.y < 0:
-		set_state(States.FALLING)
-	elif Input.is_action_pressed("sprint"):
-		set_state(States.RUNNING)
-	elif Input.is_action_just_pressed("crouch"):
-		if state != States.CROUCHING:
-			head.position.y = .5
-			set_state(States.CROUCHING)
-		if state == States.CROUCHING:
-			head.position.y = 1.6
-			set_state(States.IDLE)
-	elif Input.is_anything_pressed() and not Input.is_action_pressed("ui_cancel"):
-		set_state(States.WALKING)
-	elif state not in [States.CROUCHING] and not Input.is_anything_pressed():
-		set_state(States.IDLE)
-
-	# Set player velocity based on inputs and character state
-	player_acceleration = 8 if state == States.RUNNING else 5
-	direction = Input.get_axis("move_left", "move_right") * head.basis.x + Input.get_axis("move_forward", "move_backwards") * head.basis.z
-	velocity = velocity.lerp(direction * player_speed + velocity.y * Vector3.UP, player_acceleration * delta)
 	
-	if velocity.x != 0 or velocity.z != 0:
-		if state == States.RUNNING:
-			Events.player_noise.emit({"event_type": Events.NoiseType.RUN, "location": global_position})
-		elif state == States.WALKING:
-			Events.player_noise.emit({"event_type": Events.NoiseType.WALK, "location": global_position})
+	# Current state physics process
+	fsm.state.physics_process(delta)
 
-	# Lerp camera movement
-	head.rotation.y = lerp(head.rotation.y, -deg_to_rad(head_y_axis), camera_acceleration * delta)
-	camera.rotation.x = clampf(lerp(camera.rotation.x, -deg_to_rad(camera_x_axis), camera_acceleration * delta), -deg_to_rad(70), deg_to_rad(70))
+	# Lerp hand movement
+	hand.rotation.y = lerp(hand.rotation.y, -deg_to_rad(head_y_axis), CAMERA_ACCELERATION * delta)
+	hand.rotation.x = lerp(hand.rotation.x, -deg_to_rad(camera_x_axis), CAMERA_ACCELERATION * delta)
 
-	# Instant hand movement
-	hand.rotation.y = -deg_to_rad(head_y_axis)
-	hand.rotation.x = -deg_to_rad(camera_x_axis)
-	
-	# Jump and fall velocity
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		velocity.y += jump_impulse
-	else:
-		velocity.y -= gravity * delta
+	# Camera movement
+	head.rotation.y = -deg_to_rad(head_y_axis)
+	camera.rotation.x = clampf(-deg_to_rad(camera_x_axis), -deg_to_rad(70), deg_to_rad(70))
 	
 	# Move and slide
-	move_and_slide()
+	move_and_slide()	
 
-func set_state(new_state: States) -> void:
-	state = new_state
-	print("Set state to " + get_state(new_state))
-
-func get_state(passed_state: States = States.NULL) -> String:
-	var state_value: States
-	if passed_state != States.NULL:
-		state_value = passed_state
+# Helper function to avoid lerp slowing to approach zero
+func lerp_snap(source: Vector3, destination: Vector3, weight: float) -> Vector3:
+	var lerp_result = source.lerp(destination, weight)
+	if lerp_result.is_zero_approx():
+		return Vector3.ZERO
 	else:
-		state_value = state
-	
-	match state_value:
-		States.IDLE:
-			return "Idle"
-		States.WALKING:
-			return "Walking"
-		States.RUNNING:
-			return "Running"
-		States.CROUCHING:
-			return "Crouching"
-		States.JUMPING:
-			return "Jumping"
-		States.FALLING:
-			return "Falling"
-		_:
-			return "Unknown"
+		return lerp_result

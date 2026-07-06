@@ -1,0 +1,245 @@
+[gd_scene format=3 uid="uid://dp7rvcpaeugi1"]
+
+[ext_resource type="Shader" uid="uid://dsjbn7l1ttsil" path="res://Assets/Shaders/pause_menu.gdshader" id="1_bgicp"]
+[ext_resource type="Script" uid="uid://bytd2j801k0nh" path="res://Scenes/Testing/pause_menu.gd" id="1_pmgrh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aex8v"]
+shader = ExtResource("1_bgicp")
+
+[sub_resource type="LabelSettings" id="LabelSettings_bgicp"]
+font_size = 63
+
+[sub_resource type="LabelSettings" id="LabelSettings_aex8v"]
+font_size = 29
+
+[node name="PauseMenu" type="Control" unique_id=1463147630]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pmgrh")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2006672247]
+material = SubResource("ShaderMaterial_aex8v")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MainPauseMenu" type="Control" parent="." unique_id=1397242707]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseLabel" type="Label" parent="MainPauseMenu" unique_id=1194065406]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -110.5
+offset_right = 110.5
+offset_bottom = 689.0
+grow_horizontal = 2
+text = "Paused"
+label_settings = SubResource("LabelSettings_bgicp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Resume" type="Button" parent="MainPauseMenu" unique_id=1027161181]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -129.0
+offset_right = 84.0
+offset_bottom = -71.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_position = Vector2(0, -100)
+text = "Resume"
+
+[node name="Options" type="Button" parent="MainPauseMenu" unique_id=29583424]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -29.0
+offset_right = 84.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Options"
+
+[node name="Quit" type="Button" parent="MainPauseMenu" unique_id=299666706]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = 71.0
+offset_right = 84.0
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_position = Vector2(0, 100)
+text = "Quit"
+
+[node name="ConfirmationMenu" type="Control" parent="." unique_id=944308786]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ConfirmationTitle" type="Label" parent="ConfirmationMenu" unique_id=1037097608]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -325.25
+offset_right = 325.25
+offset_bottom = 689.0
+grow_horizontal = 2
+text = "Are you sure"
+label_settings = SubResource("LabelSettings_bgicp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ConfirmationSubTitle" type="Label" parent="ConfirmationMenu" unique_id=804242502]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -238.0
+offset_right = 238.0
+offset_bottom = 150.0
+grow_horizontal = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 450)
+text = "All progress will be lost"
+label_settings = SubResource("LabelSettings_aex8v")
+horizontal_alignment = 1
+
+[node name="Yes" type="Button" parent="ConfirmationMenu" unique_id=258710761]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -74.0
+offset_right = 84.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_position = Vector2(0, -50)
+text = "Yes"
+
+[node name="No" type="Button" parent="ConfirmationMenu" unique_id=475793535]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = 71.0
+offset_right = 84.0
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_position = Vector2(0, 100)
+text = "No
+"
+
+[node name="OptionsMenu" type="Control" parent="." unique_id=1509524650]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseLabel" type="Label" parent="OptionsMenu" unique_id=171904517]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -110.5
+offset_right = 110.5
+offset_bottom = 689.0
+grow_horizontal = 2
+text = "Options"
+label_settings = SubResource("LabelSettings_bgicp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Resume" type="Button" parent="OptionsMenu" unique_id=1866105382]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -129.0
+offset_right = 84.0
+offset_bottom = -71.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_position = Vector2(0, -100)
+text = "Resume"
+
+[node name="Options" type="Button" parent="OptionsMenu" unique_id=1390548847]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -29.0
+offset_right = 84.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Options"
+
+[node name="Quit" type="Button" parent="OptionsMenu" unique_id=185442354]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = 71.0
+offset_right = 84.0
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_position = Vector2(0, 100)
+text = "Quit"

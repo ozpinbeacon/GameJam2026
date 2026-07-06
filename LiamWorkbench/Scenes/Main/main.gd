@@ -1,19 +1,14 @@
-extends Node
+extends Control
 
-# Mouse capture and pause implementation
-@onready var pause_menu = $PauseMenu
+@onready var mazeButton: Button = $Maze
+@onready var testingButton: Button = $Testing
 
-func _ready():
-	process_mode = Node.PROCESS_MODE_ALWAYS
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+func _ready() -> void:
+	$Maze.pressed.connect(_transition_to_maze)
+	$Testing.pressed.connect(_transition_to_test)
 
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		if not get_tree().paused:
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			get_tree().paused = true
-			pause_menu.show()
-		else:
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			pause_menu.hide()
-			get_tree().paused = false
+func _transition_to_test() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Testing/Main.tscn")
+
+func _transition_to_maze() -> void:
+	get_tree().change_scene_to_file("res://Scenes/HedgeMaze/hedge_maze.tscn")
