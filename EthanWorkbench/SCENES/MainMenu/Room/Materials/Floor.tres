@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bk78o8pwql2en"]
+
+[ext_resource type="Shader" uid="uid://bimqf4eetldff" path="res://GLOBAL_RESOURCES/Shaders/texture_mapping_shader/texture_mapping_shader.res" id="1_gcmwa"]
+[ext_resource type="Texture2D" uid="uid://0pegaql2e4px" path="res://SCENES/MainMenu/Textures/CheckeredTiles/checkered_pavement_tiles_diff_2k.png" id="2_dtlxt"]
+[ext_resource type="Texture2D" uid="uid://8fs2v0qohfp2" path="res://SCENES/MainMenu/Textures/CheckeredTiles/checkered_pavement_tiles_nor_gl_2k.png" id="3_f6foe"]
+[ext_resource type="Texture2D" uid="uid://cj6w05c7ff4ne" path="res://SCENES/MainMenu/Textures/CheckeredTiles/checkered_pavement_tiles_rough_2k.png" id="4_mg5h8"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_gcmwa")
+shader_parameter/rotation_angle = 35.526001687485
+shader_parameter/UV_Scale = Vector2(0.5, 0.5)
+shader_parameter/Diffuse = ExtResource("2_dtlxt")
+shader_parameter/Diffuse_Tint = Color(0.73, 0.73, 0.73, 1)
+shader_parameter/Roughness = ExtResource("4_mg5h8")
+shader_parameter/AO_light_affect = 0.0
+shader_parameter/Normal_Map = ExtResource("3_f6foe")
+shader_parameter/Normal_Map_Depth = 1.07200005092

@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bf3lpfam3y8sh"]
+
+[ext_resource type="Texture2D" uid="uid://bndnxgelcgde1" path="res://SCENES/MainMenu/Textures/WoodTableWorn/DIFFwood_table_worn_2k.png" id="1_tbsq2"]
+[ext_resource type="Texture2D" uid="uid://cpbj6pn6rgasl" path="res://SCENES/MainMenu/Textures/WoodTableWorn/ROUGHwood_table_worn_2k.png" id="2_o4uyh"]
+[ext_resource type="Texture2D" uid="uid://1e1f7c2f01m3" path="res://SCENES/MainMenu/Textures/WoodTableWorn/NORMALGLwood_table_worn_2k.png" id="3_7iowh"]
+
+[resource]
+resource_name = "DoorFrame"
+cull_mode = 2
+albedo_texture = ExtResource("1_tbsq2")
+metallic_texture = ExtResource("2_o4uyh")
+roughness_texture = ExtResource("2_o4uyh")
+normal_enabled = true
+normal_scale = 1.47
+normal_texture = ExtResource("3_7iowh")
+uv1_scale = Vector3(10, 10, 10)
+metadata/_gltf_primary_texture_coord = 0

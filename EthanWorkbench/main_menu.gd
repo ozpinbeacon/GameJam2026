@@ -1,4 +1,5 @@
 extends Node3D
+## Main Menu ##
 
 const LEFT: String = "left"
 const RIGHT: String = "right"
@@ -14,9 +15,13 @@ const SUN_COLOR_PROPERTY_PATH: String = "light_color"
 const SUN_COLOR_RED: Color = Color(0.62, 0.294, 0.184)
 const SUN_COLOR_WHITE: Color = Color(1.0, 1.0, 1.0)
 
+@onready var camera_intro: Camera3D = $Cameras/CameraIntro
 @onready var camera_hanging_guy: Camera3D = $Cameras/CameraHangingGuy
+@onready var camera_hanging_guy_zoomed_out: Camera3D = $Cameras/CameraHangingGuyZoomedOut
 @onready var camera_chair_guy: Camera3D = $Cameras/CameraChairGuy
+@onready var camera_chair_guy_zoomed_out: Camera3D = $Cameras/CameraChairGuyZoomedOut
 @onready var camera_gun_guy: Camera3D = $Cameras/CameraGunGuy
+@onready var camera_gun_guy_zoomed_out: Camera3D = $Cameras/CameraGunGuyZoomedOut
 
 @onready var animated_overlay_start_game: TextureRect = $CanvasLayer/Control/AnimatedOverlayStartGame
 @onready var animated_overlay_options: TextureRect = $CanvasLayer/Control/AnimatedOverlayOptions
@@ -25,12 +30,9 @@ const SUN_COLOR_WHITE: Color = Color(1.0, 1.0, 1.0)
 @onready var world_environment: WorldEnvironment = $Environment/WorldEnvironment
 @onready var sun: DirectionalLight3D = $Environment/Sun
 
-@onready var gun_guy_animation_player: AnimationPlayer = $MainMenuV2/GunGuy/AnimationPlayer
-@onready var hanging_guy_animation_player: AnimationPlayer = $MainMenuV2/HangingGuy/AnimationPlayer
+@onready var gun_guy: GunGuy = $MainMenuV2/GunGuy2
+@onready var hanging_guy: Node3D = $MainMenuV2/HangingGuy
 @onready var chair_guy_animation_player: AnimationPlayer = $MainMenuV2/ChairGuy/AnimationPlayer
-
-@onready var zoomed_out_gun_guy_camera: Camera3D = $MainMenuV2/GunGuy/Camera3D
-
 
 @onready var main_audio_stream_player: AudioStreamPlayer = $MainAudioStreamPlayer
 @onready var intro_audio_stream_player: AudioStreamPlayer = $IntroAudioStreamPlayer
@@ -40,7 +42,7 @@ const SUN_COLOR_WHITE: Color = Color(1.0, 1.0, 1.0)
 
 var transitioning: bool = true
 var currently_selected: String
-var current_camera: Camera3D
+var freeze_frame_active: bool = false
 
 
 @export var start_game_camera_transition_time: float = 0.9
@@ -50,7 +52,7 @@ var current_camera: Camera3D
 @export var zoom_in_time: float = 0.5
 
 @export var activate_freeze_frame_tween_time: float = 0.1
-@export var freeze_brightness_value: float = 1.0
+@export var freeze_brightness_value: float = 0.8
 @export var freeze_contrast_value: float = 1.25
 @export var freeze_saturation_value: float = 0.0
 
@@ -61,31 +63,29 @@ var current_camera: Camera3D
 
 
 
-
 #region Initiialisation
 func _ready() -> void:
 	setup_main_menu_initial_state()
 
 
 func setup_main_menu_initial_state()-> void:
+	# Transition to START_GAME state
 	transitioning = true
-	
 	currently_selected = START_GAME
 	
 	sun.set("light_color", SUN_COLOR_RED)
 	
-	zoomed_out_gun_guy_camera.make_current()
-	
-	gun_guy_animation_player.play("GettingUpAndPointingAtHangingGuy")
+	camera_intro.make_current()
 	
 	intro_audio_stream_player.finished.connect(on_intro_audio_stream_player_finished)
 	intro_audio_stream_player.play()
 	
-	await gun_guy_animation_player.animation_finished
+	await gun_guy.play_intro()
 	
-	await CameraSwitcher.transition_camera_3d(zoomed_out_gun_guy_camera, camera_hanging_guy, 0.5)
-	current_camera = camera_hanging_guy
-	
+	# Transition cameras
+	await CameraSwitcher.transition_camera_3d(camera_intro, camera_hanging_guy_zoomed_out, 0.5)
+	await CameraSwitcher.transition_camera_3d(camera_hanging_guy_zoomed_out, camera_hanging_guy, 0.5)
+		
 	await activate_freeze_frame_state()
 	
 	await get_tree().create_timer(1.0).timeout
@@ -161,24 +161,25 @@ func select_right()-> void:
 #region Selecting Menu Options
 func select_start_game()-> void:
 	print("Selecting start game now")
-	# Prevent fucking with it until transition complete
+	
+	# Prevent fucking with the game until transition complete
 	transitioning = true
 	
-	# Set the environment and lights
-	await deactivate_freeze_frame_state()
+	# Set the environment and lights to freeze frame if not already
+	if freeze_frame_active:
+		await deactivate_freeze_frame_state()
 	
-	# Zoom out to gun guys camera
-	await CameraSwitcher.transition_camera_3d(get_viewport().get_camera_3d(), zoomed_out_gun_guy_camera, zoom_out_time)
+	# Zoom out to gun guy camera 2
+	await CameraSwitcher.transition_camera_3d(get_viewport().get_camera_3d(), camera_hanging_guy_zoomed_out, zoom_out_time)
 	
 	# Update the variable to store the current menu selection
 	currently_selected = START_GAME
 	
 	# Play the animation and wait for it to finish
-	gun_guy_animation_player.play("PointAtHangingGuy")
-	await gun_guy_animation_player.animation_finished
+	await gun_guy.play_select_one()
 	
 	# Zoom in on the next camera
-	await CameraSwitcher.transition_camera_3d(get_viewport().get_camera_3d(), camera_hanging_guy, zoom_in_time)
+	await CameraSwitcher.transition_camera_3d(camera_hanging_guy_zoomed_out, camera_hanging_guy, zoom_in_time)
 	
 	#Change the environment and light settings
 	await activate_freeze_frame_state()
@@ -193,28 +194,35 @@ func select_start_game()-> void:
 	transitioning = false
 
 
-
 func select_options()-> void:
 	print("Selecting options now")
 	# Prevent fucking with it until transition complete
 	transitioning = true
 	
-	# Set the environment and lights
-	await deactivate_freeze_frame_state()
+	# Set the environment and lights to freeze frame if not already
+	if freeze_frame_active:
+		await deactivate_freeze_frame_state()
 	
-	# Zoom out to gun guys camera
-	await CameraSwitcher.transition_camera_3d(get_viewport().get_camera_3d(), zoomed_out_gun_guy_camera, zoom_out_time)
-	
-	# Update the variable to store the current menu selection
-	currently_selected = OPTIONS
+	# Zoom out 
+	if currently_selected == QUIT_GAME:
+		await CameraSwitcher.transition_camera_3d(get_viewport().get_camera_3d(), camera_gun_guy_zoomed_out, zoom_out_time)
+	elif currently_selected == START_GAME:
+		await CameraSwitcher.transition_camera_3d(get_viewport().get_camera_3d(), camera_hanging_guy_zoomed_out, zoom_out_time)
 	
 	# Zoom in on the next camera
 	await CameraSwitcher.transition_camera_3d(get_viewport().get_camera_3d(), camera_chair_guy, zoom_in_time)
 	
-	# Play the animations and wait for it to finish
-	gun_guy_animation_player.play("PointAtChairGuy")
+	# Play the chair guys animation
 	chair_guy_animation_player.play("LookUp")
-	await gun_guy_animation_player.animation_finished
+	
+	# Play the gun guys animation and wait for it to finish
+	if currently_selected == QUIT_GAME:
+		await gun_guy.play_select_two_from_three()
+	elif currently_selected == START_GAME:
+		await gun_guy.play_select_two_from_one()
+	
+	# Update the variable to store the current menu selection
+	currently_selected = OPTIONS
 	
 	#Change the environment and light settings
 	await activate_freeze_frame_state()
@@ -229,27 +237,26 @@ func select_options()-> void:
 	transitioning = false
 	
 
-
 func select_quit_game()-> void:
 	print("Selecting quit game now")
 	# Prevent fucking with it until transition complete
 	transitioning = true
 	
-	# Set the environment and lights
-	await deactivate_freeze_frame_state()
+	# Set the environment and lights to freeze frame if not already
+	if freeze_frame_active:
+		await deactivate_freeze_frame_state()
 	
 	# Zoom out to gun guys camera
-	await CameraSwitcher.transition_camera_3d(get_viewport().get_camera_3d(), zoomed_out_gun_guy_camera, zoom_out_time)
+	await CameraSwitcher.transition_camera_3d(get_viewport().get_camera_3d(), camera_chair_guy_zoomed_out, zoom_out_time)
 	
 	# Update the variable to store the current menu selection
 	currently_selected = QUIT_GAME
 	
 	# Zoom in on the next camera
-	await CameraSwitcher.transition_camera_3d(get_viewport().get_camera_3d(), camera_gun_guy, zoom_in_time)
+	await CameraSwitcher.transition_camera_3d(camera_chair_guy_zoomed_out, camera_gun_guy, zoom_in_time)
 	
 	# Play the animations and wait for it to finish
-	gun_guy_animation_player.play("PointAtSelf")
-	await gun_guy_animation_player.animation_finished
+	await gun_guy.play_select_three()
 	
 	#Change the environment and light settings
 	await activate_freeze_frame_state()
@@ -277,30 +284,44 @@ func confirm_selection()-> void:
 		QUIT_GAME:
 			quit_game()
 
+@onready var hanging_guy_movement_animation_player: AnimationPlayer = $MainMenuV2/HangingGuy/HangingGuyMovementAnimationPlayer
 
 func start_game()-> void:
 	print("starting game now")
-	#gun_guy_animation_player.play("shoot_hanging_guy")
-	#animation_player_hanging_guy.play("escape")
-	#await animation_player_hanging_guy.animation_finished
-	#load_scene(gaem_level)
+	await deactivate_freeze_frame_state()
+	#await gun_guy.play_shoot_hanging_guy()
+	await hanging_guy.play_fall_from_ropes()
+	hanging_guy.play_running_loop()
+	hanging_guy_movement_animation_player.play("move_hanging_guy")
+	await hanging_guy_movement_animation_player.animation_finished
+	
+	hanging_guy.play_door_smash()
+	await get_tree().create_timer(0.5).timeout
+	hanging_guy_movement_animation_player.play("leave_mansion")
+	hanging_guy.play_running_loop()
+	
+	
+	#await hanging_guy.play_escape()
+	#load_scene(game_level)
 
 func open_options()-> void:
 	print("opening options menu")
-	#gun_guy_animation_player.play("shoot_chair_guy")
-	#await gun_guy_animation_player.animation_finished
+	await deactivate_freeze_frame_state()
+	#gun_guy.play("shoot_chair_guy")
+	#await gun_guy.animation_finished
 	#load_scene(options)
 
 func quit_game()-> void:
 	print("quitting game now")
-	#gun_guy_animation_player.play("shoot_self")
-	#await gun_guy_animation_player.animation_finished
+	await deactivate_freeze_frame_state()
+	#gun_guy.play("shoot_self")
+	#await gun_guy.animation_finished
 	#get_tree().quit()
 #endregion
 
 
 
-#region Tweens
+#region Freeze Frame
 func activate_freeze_frame_state()-> void:
 	# Create the tween and set it to tween all properties simultaneously (in paralel)
 	var tween: Tween = get_tree().create_tween()
@@ -316,6 +337,10 @@ func activate_freeze_frame_state()-> void:
 	
 	# Make this functino async so it can be awaited
 	await tween.finished
+	
+	freeze_frame_active = true
+	
+	sun.show()
 
 
 func deactivate_freeze_frame_state()-> void:
@@ -333,4 +358,8 @@ func deactivate_freeze_frame_state()-> void:
 	
 	# Make this functino async so it can be awaited
 	await tween.finished
+	
+	freeze_frame_active = false
+	
+	sun.hide()
 #endregion
