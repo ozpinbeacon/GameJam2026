@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://caf7tq7thcojv" path="res://SCENES/HedgeMaze/hedge_maze.gd" id="1_1xlos"]
 [ext_resource type="ArrayMesh" uid="uid://bbl4tu4nqeako" path="res://SCENES/HedgeMaze/Meshes/ProceduralHedge_Plane_001.res" id="2_1xlos"]
 [ext_resource type="PackedScene" uid="uid://cdxwpe1uwaqat" path="res://PLAYER/Player.tscn" id="2_sdat0"]
-[ext_resource type="Environment" uid="uid://4xgmbkxw1p2v" path="res://ENVIRONMENT/WorldEnvironmentSetups/HedgeMazeRedSunSpookyEnvironmentSettings.res" id="3_8pbsb"]
 [ext_resource type="Script" uid="uid://btdws44p3rdqy" path="res://ENVIRONMENT/world_environment_controller.gd" id="3_624fv"]
 [ext_resource type="ArrayMesh" uid="uid://bngj1wv8a4sb1" path="res://SCENES/HedgeMaze/Meshes/ProceduralHedge_MazeGround].res" id="3_aq6u2"]
 [ext_resource type="Material" uid="uid://b1reqk55gfijg" path="res://SCENES/HedgeMaze/Materials/TrippyWetGroundMaterial.res" id="5_624fv"]
@@ -133,7 +132,7 @@ material = SubResource("StandardMaterial3D_624fv")
 script = ExtResource("1_1xlos")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=1925198767]
-transform = Transform3D(1, 0, 0, 0, -0.9948946, 0.10091868, 0, -0.10091868, -0.9948946, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.17292541, 0.98493487, 0, -0.98493487, 0.17292541, 0, 0, 0)
 light_energy = 0.2
 shadow_enabled = true
 sky_mode = 2
@@ -142,7 +141,6 @@ sky_mode = 2
 transform = Transform3D(5, 0, 0, 0, 4.9999948, -0.0073176622, 0, 0.0073176622, 4.9999948, 0, 0, 800)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=377565609]
-environment = ExtResource("3_8pbsb")
 script = ExtResource("3_624fv")
 
 [node name="ProceduralHedge" type="Node3D" parent="." unique_id=564357962]

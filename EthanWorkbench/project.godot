@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="GameJam2026"
+config/name="EthanWorkbench GAME JAM 2026"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
