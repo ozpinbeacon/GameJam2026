@@ -15,12 +15,20 @@ const RUN_SPEED = 12
 const CROUCH_SPEED = 3
 const AIR_SPEED = 3
 var CROUCH_DIFF = .5
+const BASE_STAMINA = 100
 
 # Character base stats - variables
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var acceleration = WALK_SPEED
 var speed = WALK_SPEED
 var crouched = false
+
+# Character stamina system
+const STAMINA_REGEN = 10
+const MAX_STAMINA = 100
+var stamina = BASE_STAMINA
+var stamina_depleted = false
+var stamina_inf = false
 
 # Character part variables
 @onready var head = $Head
@@ -36,7 +44,7 @@ var crouched = false
 @onready var animation_player = $AnimationPlayer
 
 # Character item variables
-@onready var flashlight = $Hand/Torch
+@onready var lantern = $Hand/Lantern
 
 # Movement control variables
 var direction = Vector3.ZERO
@@ -44,10 +52,20 @@ var head_y_axis = 0.0
 var camera_x_axis = 0.0
 
 # Character action variables
-@export var has_flashlight: bool = false
+@export var has_lantern: bool = false
 
-# Gamepad movement
 func _process(delta):
+	# Regenerate stamina
+	if self.stamina < MAX_STAMINA:
+		if self.stamina_depleted:
+			self.stamina += STAMINA_REGEN/1.2 * delta
+		else:
+			self.stamina += STAMINA_REGEN * delta
+		
+		if self.stamina >= 100:
+			self.stamina = 100
+			self.stamina_depleted = false
+	
 	# Gamepad camera movement if gamepad is active input method
 	if not MOUSE_KEYBOARD_CONTROLS:
 		head_y_axis += (Input.get_action_strength("view_right") - Input.get_action_strength("view_left")) * CAMERA_CONTROLLER_ROTATION_SPEED
@@ -68,17 +86,23 @@ func _unhandled_input(event):
 		camera_x_axis += event.relative.y * CAMERA_MOUSE_SENSITIVITY
 	
 	# Toggle flashlight if flashlight is acquired
-	if event.is_action_pressed("flashlight_toggle") and has_flashlight:
-		flashlight.toggle_torch()
+	if event.is_action_pressed("flashlight_toggle") and has_lantern:
+		lantern.toggle_lantern()
 	
 	# If cursor is targeting an interactable item, click to execute interaction
 	if event.is_action_pressed("click") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if cursor.is_colliding() and cursor.get_collider() is InteractableObject:
-			cursor.get_collider().interact()
+			cursor.get_collider().interaction()
 	
 	# Debug tool to get enemy attention, maybe could implement into actual mechanic
 	if event.is_action_pressed("yell"):
 		Events.player_noise.emit({"event_type": Events.NoiseType.YELL, "location": global_position})
+	
+	if event.is_action_pressed("debug_stamina"):
+		if stamina_inf:
+			self.stamina_inf = false
+		else:
+			self.stamina_inf = true
 	
 	# Current state input events
 	fsm.state.input(event)
@@ -89,7 +113,7 @@ func _physics_process(delta):
 	# If cursor is targeting an interactable item, show label
 	if cursor.is_colliding() and cursor.get_collider() is InteractableObject:
 		cursor_label.show()
-		cursor_label.text = cursor.get_collider().label
+		cursor_label.text = cursor.get_collider().ui_label
 	else:
 		cursor_label.hide()
 	
@@ -107,8 +131,14 @@ func _physics_process(delta):
 	# Move and slide
 	move_and_slide()	
 
+func _process_item(item_type) -> void:
+	if item_type == PlayerItem.ITEM_TYPES.Lantern:
+		self.has_lantern = true
+		lantern.show()
+		
+
 # Helper function to avoid lerp slowing to approach zero
-func lerp_snap(source: Vector3, destination: Vector3, weight: float) -> Vector3:
+func _lerp_snap(source: Vector3, destination: Vector3, weight: float) -> Vector3:
 	var lerp_result = source.lerp(destination, weight)
 	if lerp_result.is_zero_approx():
 		return Vector3.ZERO

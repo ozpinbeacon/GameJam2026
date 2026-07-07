@@ -5,3 +5,6 @@ signal interacted
 
 # Label to show when cursor collides
 var ui_label
+
+func interaction() -> void:
+	pass

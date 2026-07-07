@@ -24,7 +24,7 @@ func input(event) -> void:
 # Standard movement and noise emission
 func physics_process(delta: float) -> void:
 	player.direction = Input.get_axis("move_left", "move_right") * player.head.basis.x + Input.get_axis("move_forward", "move_backwards") * player.head.basis.z
-	player.velocity = player.lerp_snap(player.velocity, player.direction * player.speed + player.velocity.y * Vector3.UP, player.acceleration * delta)
+	player.velocity = player._lerp_snap(player.velocity, player.direction * player.speed + player.velocity.y * Vector3.UP, player.acceleration * delta)
 	
 	if not (player.velocity.x == 0 and player.velocity.z == 0):
 		Events.player_noise.emit({"event_type": Events.NoiseType.CROUCH_WALK, "location": player.global_position})

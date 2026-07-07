@@ -20,11 +20,11 @@ func input(event) -> void:
 func physics_process(delta: float) -> void:
 	if Input.is_action_pressed("jump"):
 		finished.emit(PlayerState.JUMPING)
-	elif Input.is_action_pressed("sprint"):
+	elif Input.is_action_pressed("sprint") and player.stamina > 0 and not player.stamina_depleted:
 		finished.emit(PlayerState.RUNNING)
 	
 	player.direction = Input.get_axis("move_left", "move_right") * player.head.basis.x + Input.get_axis("move_forward", "move_backwards") * player.head.basis.z
-	player.velocity = player.lerp_snap(player.velocity, player.direction * player.speed + player.velocity.y * Vector3.UP, player.acceleration * delta)
+	player.velocity = player._lerp_snap(player.velocity, player.direction * player.speed + player.velocity.y * Vector3.UP, player.acceleration * delta)
 	
 	# Set to idle if not moving, otherwise emit noise
 	if player.velocity.x == 0 and player.velocity.z == 0:

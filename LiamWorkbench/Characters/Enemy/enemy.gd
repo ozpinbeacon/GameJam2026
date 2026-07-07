@@ -18,7 +18,7 @@ var current_speed = BASE_SPEED
 
 # When an object enters the peripheral vision, snap raycast to the object
 func _ready() -> void:
-	peripheral_vision.body_entered.connect(snap_vision)
+	peripheral_vision.body_entered.connect(_snap_vision)
 
 
 func _physics_process(delta) -> void:
@@ -47,11 +47,11 @@ func _physics_process(delta) -> void:
 	
 	move_and_slide()
 
+# Snap raycast to object in periphery
+func _snap_vision(body) -> void:
+	targeted_vision.target_position = targeted_vision.to_local(body.global_position)
+
 # What is the current objective of the enemy
 func get_current_target() -> Vector3:
 	return fsm.state.target
-
-# Snap raycast to object in periphery
-func snap_vision(body) -> void:
-	targeted_vision.target_position = targeted_vision.to_local(body.global_position)
 	

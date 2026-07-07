@@ -14,6 +14,7 @@ func _process(_delta: float) -> void:
 	text += "\n"
 	text += "Player State: " + _player.fsm.state.label + "\n"
 	text += "Player Position: " + str(_player.global_position) + "\n"
+	text += "Player stamina: " + str(_player.stamina) + "\n"
 	text += "Velocity X" + str(_player.velocity.x) + "\n"
 	text += "Velocity Y" + str(_player.velocity.y) + "\n"
 	text += "Velocity Z" + str(_player.velocity.z) + "\n"

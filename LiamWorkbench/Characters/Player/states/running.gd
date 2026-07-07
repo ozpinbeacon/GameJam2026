@@ -22,12 +22,18 @@ func physics_process(delta: float) -> void:
 			finished.emit(PlayerState.IDLE)
 		else:
 			finished.emit(PlayerState.WALKING)
-		
+	
+	if player.stamina <= 0:
+		player.stamina_depleted = true
+		finished.emit(PlayerState.WALKING)
+	elif not player.stamina_inf:
+		player.stamina -= 15 * delta	
+	
 	player.direction = Input.get_axis("move_left", "move_right") * player.head.basis.x + Input.get_axis("move_forward", "move_backwards") * player.head.basis.z
-	player.velocity = player.lerp_snap(player.velocity, player.direction * player.speed + player.velocity.y * Vector3.UP, player.acceleration * delta)
+	player.velocity = player._lerp_snap(player.velocity, player.direction * player.speed + player.velocity.y * Vector3.UP, player.acceleration * delta)
 	
 	# Noise emission
 	Events.player_noise.emit({"event_type": Events.NoiseType.RUN, "location": player.global_position})
 
 #func exit() -> void:
-#	# Play some animation
+	# Play some animation

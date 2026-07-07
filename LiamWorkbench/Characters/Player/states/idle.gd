@@ -20,7 +20,7 @@ func physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("jump"):
 		finished.emit(PlayerState.JUMPING)
 	if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_forward") or Input.is_action_pressed("move_backwards"):
-		if Input.is_action_pressed("sprint"):
+		if Input.is_action_pressed("sprint") and player.stamina > 0 and not player.stamina_depleted:
 			finished.emit(PlayerState.RUNNING)
 		else:
 			finished.emit(PlayerState.WALKING)
