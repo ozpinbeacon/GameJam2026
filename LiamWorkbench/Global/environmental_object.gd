@@ -1,0 +1,1 @@
+class_name EnvironmentalObject extends InteractableObject

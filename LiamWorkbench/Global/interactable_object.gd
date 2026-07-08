@@ -6,5 +6,8 @@ signal interacted
 # Label to show when cursor collides
 var ui_label
 
+func _init() -> void:
+	ui_label = "Debug"
+
 func interaction() -> void:
 	pass

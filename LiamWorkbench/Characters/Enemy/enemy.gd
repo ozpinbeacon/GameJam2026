@@ -1,5 +1,7 @@
 class_name Enemy extends CharacterBody3D
 
+signal player_caught
+
 # Enemy speed variables
 const BASE_SPEED = 2
 var current_speed = BASE_SPEED
@@ -12,6 +14,7 @@ var current_speed = BASE_SPEED
 @onready var nav_agent = $NavigationAgent3D
 @onready var peripheral_vision = $Vision/Peripheral
 @onready var targeted_vision = $Vision/Targeted
+@onready var body = $CollisionShape3D
 
 # Reference to the player for location tracking
 @export var player: Node
@@ -20,9 +23,11 @@ var current_speed = BASE_SPEED
 func _ready() -> void:
 	peripheral_vision.body_entered.connect(_snap_vision)
 
-
 func _physics_process(delta) -> void:
 	velocity = Vector3.ZERO
+	
+	if not self.get_last_slide_collision() == null and self.get_last_slide_collision().get_collider() is Player:
+		player_caught.emit()
 	
 	# If the raycast is colliding with the player, transition to CHASING state
 	if targeted_vision.is_colliding() and targeted_vision.get_collider() is Player:

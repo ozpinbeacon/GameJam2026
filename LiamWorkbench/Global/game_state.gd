@@ -10,19 +10,28 @@ enum Progression {None, FirstItem, SecondItem, ThirdItem, AllItems}
 # Player
 @onready var player = get_node("/root/Main/GameWorld/Player")
 
+# Enemy
+@onready var enemy = get_node("/root/Main/GameWorld/Enemy")
+
 # Activate listeners for all game event objects
 func _ready():
 	game_progression = Progression.None
 	var event_items = get_parent().find_children("*", "ProgressionItem")
 	for item in event_items:
-		item.interacted.connect(key_item_collected)
+		item.interacted.connect(_key_item_collected)
 	
 	var player_items = get_parent().find_children("*", "PlayerItem")
 	for item in player_items:
 		item.interacted.connect(player._process_item)
+	
+	var environment_items = get_parent().find_children("*", "EnvironmentalObjects")
+	for item in environment_items:
+		item.interacted.connect(_altar_interacted)
+		
+	enemy.player_caught.connect(_game_over)
 
 # Receive signal when a poster is collected
-func key_item_collected(sender):
+func _key_item_collected():
 	no_items_collected += 1
 	match no_items_collected:
 		1:
@@ -34,6 +43,14 @@ func key_item_collected(sender):
 		4:
 			game_progression = Progression.AllItems
 	
+func _altar_interacted() -> void:
+	if game_progression == Progression.AllItems:
+		pass
+	else:
+		pass
+
+func _game_over() -> void:
+	get_tree().paused = true
 
 # Helper function for debugging current progression state
 func get_state() -> String:
