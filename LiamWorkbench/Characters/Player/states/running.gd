@@ -23,6 +23,7 @@ func physics_process(delta: float) -> void:
 		else:
 			finished.emit(PlayerState.WALKING)
 	
+	# If stamina exhausts, force walking until it replenishes
 	if player.stamina <= 0:
 		player.stamina_depleted = true
 		finished.emit(PlayerState.WALKING)

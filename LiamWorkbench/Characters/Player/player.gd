@@ -54,14 +54,19 @@ var camera_x_axis = 0.0
 # Character action variables
 @export var has_lantern: bool = false
 
+# Character inventory
+var inventory: Array[String] = []
+
 func _process(delta):
 	# Regenerate stamina
 	if self.stamina < MAX_STAMINA:
+		# Regenerate stamina at a slower rate if it was completed depleted
 		if self.stamina_depleted:
 			self.stamina += STAMINA_REGEN/1.2 * delta
 		else:
 			self.stamina += STAMINA_REGEN * delta
 		
+		# Set to whole integer to remove any floating decimals and set depleted to false
 		if self.stamina >= 100:
 			self.stamina = 100
 			self.stamina_depleted = false
@@ -98,6 +103,7 @@ func _unhandled_input(event):
 	if event.is_action_pressed("yell"):
 		Events.player_noise.emit({"event_type": Events.NoiseType.YELL, "location": global_position})
 	
+	# Turn off stamina while testing
 	if event.is_action_pressed("debug_stamina"):
 		if stamina_inf:
 			self.stamina_inf = false
@@ -131,11 +137,20 @@ func _physics_process(delta):
 	# Move and slide
 	move_and_slide()	
 
-func _process_item(item_type) -> void:
+# Add item label to inventory
+func add_to_inventory(item) -> void:
+	inventory.append(item)
+
+# Remove first item from inventory, order doesn't matter (yet)
+func remove_from_inventory() -> void:
+	if inventory:
+		inventory.remove_at(0)
+
+# To be called by game state, if lantern turn on lantern function
+func process_item(item_type) -> void:
 	if item_type == PlayerItem.ITEM_TYPES.Lantern:
 		self.has_lantern = true
 		lantern.show()
-		
 
 # Helper function to avoid lerp slowing to approach zero
 func _lerp_snap(source: Vector3, destination: Vector3, weight: float) -> Vector3:

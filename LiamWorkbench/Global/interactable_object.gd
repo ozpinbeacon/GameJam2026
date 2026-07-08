@@ -6,8 +6,9 @@ signal interacted
 # Label to show when cursor collides
 var ui_label
 
-func _init() -> void:
-	ui_label = "Debug"
+# Set the label to the node name by default
+func _ready() -> void:
+	ui_label = self.get_name()
 
 func interaction() -> void:
 	pass

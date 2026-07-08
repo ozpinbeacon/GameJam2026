@@ -3,6 +3,7 @@ extends Node
 var player: PlayerSettings
 var config
 
+# Load settings from user data
 func _init():
 	self.player = PlayerSettings.new()
 	config = ConfigFile.new()

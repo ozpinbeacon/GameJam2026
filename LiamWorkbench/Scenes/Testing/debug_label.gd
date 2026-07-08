@@ -19,6 +19,8 @@ func _process(_delta: float) -> void:
 	text += "Velocity Y" + str(_player.velocity.y) + "\n"
 	text += "Velocity Z" + str(_player.velocity.z) + "\n"
 	text += "\n"
+	text += "Player Inventory: " + str(_player.inventory) + "\n"
+	text += "\n"
 	text += "Enemy State: " + _enemy.fsm.get_state() + "\n"
 	text += "Enemy Player Last Seen: " + str(_enemy.fsm.state.player_last_seen if _enemy.fsm.state.label == EnemyState.CHASING else "N/A") + "\n"
 	text += "Enemy Target: " + str(_enemy.nav_agent.get_next_path_position()) + "\n"

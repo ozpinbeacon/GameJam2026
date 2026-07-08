@@ -20,7 +20,7 @@ func input(event) -> void:
 func physics_process(delta: float) -> void:
 	if Input.is_action_pressed("jump"):
 		finished.emit(PlayerState.JUMPING)
-	elif Input.is_action_pressed("sprint") and player.stamina > 0 and not player.stamina_depleted:
+	elif Input.is_action_pressed("sprint") and player.stamina > 0 and not player.stamina_depleted: #Only allow sprinting if not depleted and above 0
 		finished.emit(PlayerState.RUNNING)
 	
 	player.direction = Input.get_axis("move_left", "move_right") * player.head.basis.x + Input.get_axis("move_forward", "move_backwards") * player.head.basis.z

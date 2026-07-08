@@ -299,6 +299,7 @@ has_lantern = false
 
 [node name="Enemy" parent="GameWorld" unique_id=1409531793 instance=ExtResource("13_l78py")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5140076, 0, 36.568245)
+debug = false
 
 [node name="DebugLabel" type="Label" parent="." unique_id=2015609519]
 offset_right = 273.0
