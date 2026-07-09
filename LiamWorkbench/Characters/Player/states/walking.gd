@@ -23,6 +23,9 @@ func physics_process(delta: float) -> void:
 	elif Input.is_action_pressed("sprint") and player.stamina > 0 and not player.stamina_depleted: #Only allow sprinting if not depleted and above 0
 		finished.emit(PlayerState.RUNNING)
 	
+	if player.p_speed_on:
+		player.speed = player.WALK_SPEED * player.P_SPEED
+	
 	player.direction = Input.get_axis("move_left", "move_right") * player.head.basis.x + Input.get_axis("move_forward", "move_backwards") * player.head.basis.z
 	player.velocity = player._lerp_snap(player.velocity, player.direction * player.speed + player.velocity.y * Vector3.UP, player.acceleration * delta)
 	

@@ -3,7 +3,7 @@ extends Label
 # Debug label to show current velocities and cursor information
 @export var player := NodePath("/root/Main/GameWorld/Player")
 @export var enemy := NodePath("/root/Main/GameWorld/Enemy")
-@export var game_state := NodePath("/root/Main/GameWorld/GameState")
+@export var game_state := NodePath("/root/Main/GameWorld")
 @onready var _player := get_node(player)
 @onready var _game_state := get_node(game_state)
 @onready var _enemy := get_node(enemy)
@@ -19,7 +19,7 @@ func _process(_delta: float) -> void:
 	text += "Velocity Y" + str(_player.velocity.y) + "\n"
 	text += "Velocity Z" + str(_player.velocity.z) + "\n"
 	text += "\n"
-	text += "Player Inventory: " + str(_player.inventory) + "\n"
+	text += "Player Inventory: " + _player.inventory.list_inventory() + "\n"
 	text += "\n"
 	text += "Enemy State: " + _enemy.fsm.get_state() + "\n"
 	text += "Enemy Player Last Seen: " + str(_enemy.fsm.state.player_last_seen if _enemy.fsm.state.label == EnemyState.CHASING else "N/A") + "\n"

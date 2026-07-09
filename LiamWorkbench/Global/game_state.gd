@@ -29,7 +29,7 @@ func _ready():
 	# Get all player items and listen to their signal
 	var player_items = get_parent().find_children("*", "PlayerItem")
 	for item in player_items:
-		item.interacted.connect(player.process_item)
+		item.interacted.connect(player.inventory.process_item)
 	
 	# Get the altar and listen to it's signal
 	var environment_items = get_parent().find_children("*", "EnvironmentalObject")
@@ -45,7 +45,7 @@ func _key_item_collected(sender):
 	no_items_collected += 1
 	
 	# Add the item to the player inventory
-	player.add_to_inventory(sender)
+	player.inventory.progression_items.add_to_inventory(sender)
 	
 	# Set progression based on number of items collected
 	match no_items_collected:

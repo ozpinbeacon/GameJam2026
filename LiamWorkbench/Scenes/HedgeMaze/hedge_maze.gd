@@ -4,7 +4,7 @@ const TRIPPY_WET_GROUND_MATERIAL = preload("uid://b1reqk55gfijg")
 const TRIPPY_BREATHE_WET_GROUND_MATERIAL = preload("uid://b6gtdtjeh4vvf")
 
 
-@onready var maze_ground_mesh: MeshInstance3D = $Environment/ProceduralHedge/MazeGround
+@onready var maze_ground_mesh: MeshInstance3D = $ProceduralHedge/MazeGround
 
 var default_heightmap_scale: float = 0.0
 var max_trippy_wet_value: float = 0.0

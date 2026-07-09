@@ -1,5 +1,8 @@
 class_name Player extends CharacterBody3D
 
+# UI signals
+signal cursor_label_update
+
 # Control constants
 var CAMERA_CONTROLLER_ROTATION_SPEED = Settings.player.CAMERA_CONTROLLER_ROTATION_SPEED
 var CAMERA_MOUSE_SENSITIVITY = Settings.player.CAMERA_MOUSE_SENSITIVITY
@@ -12,6 +15,7 @@ var MOUSE_KEYBOARD_CONTROLS = Settings.player.MOUSE_KEYBOARD_CONTROLS
 const JUMP_IMPULSE = 5
 const WALK_SPEED = 5
 const RUN_SPEED = 12
+const RUN_ACCEL = 1.1
 const CROUCH_SPEED = 3
 const AIR_SPEED = 3
 var CROUCH_DIFF = .5
@@ -30,11 +34,14 @@ var stamina = BASE_STAMINA
 var stamina_depleted = false
 var stamina_inf = false
 
+# Speed multiplier for pills
+var p_speed_on = false
+const P_SPEED = 1.2
+
 # Character part variables
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var cursor = $Head/Camera3D/Cursor
-@onready var cursor_label = $Head/Camera3D/CursorLabel
 @onready var hand = $Hand
 
 # State Machine
@@ -46,16 +53,23 @@ var stamina_inf = false
 # Character item variables
 @onready var lantern = $Hand/Lantern
 
+# Character inventory
+@onready var inventory = $Inventory
+
 # Movement control variables
 var direction = Vector3.ZERO
 var head_y_axis = 0.0
 var camera_x_axis = 0.0
 
-# Character action variables
-@export var has_lantern: bool = false
+@export var debug = false
 
-# Character inventory
-var inventory: Array[String] = []
+func _ready() -> void:
+	inventory.item_received.connect(_item_received)
+	if self.debug:
+		self.inventory.consumables.pills = 99
+		self.inventory.consumables.holy_water = 99
+		self.inventory.key_items.lantern = true
+		self.lantern.show()
 
 func _process(delta):
 	# Regenerate stamina
@@ -91,7 +105,7 @@ func _unhandled_input(event):
 		camera_x_axis += event.relative.y * CAMERA_MOUSE_SENSITIVITY
 	
 	# Toggle flashlight if flashlight is acquired
-	if event.is_action_pressed("flashlight_toggle") and has_lantern:
+	if event.is_action_pressed("flashlight_toggle") and inventory.key_items.lantern:
 		lantern.toggle_lantern()
 	
 	# If cursor is targeting an interactable item, click to execute interaction
@@ -102,6 +116,10 @@ func _unhandled_input(event):
 	# Debug tool to get enemy attention, maybe could implement into actual mechanic
 	if event.is_action_pressed("yell"):
 		Events.player_noise.emit({"event_type": Events.NoiseType.YELL, "location": global_position})
+	
+	if event.is_action_pressed("consumable_pills"):
+		if inventory.consumables.pills > 0:
+			_use_pills()
 	
 	# Turn off stamina while testing
 	if event.is_action_pressed("debug_stamina"):
@@ -115,13 +133,11 @@ func _unhandled_input(event):
 
 # Continuous events
 func _physics_process(delta):
-	
 	# If cursor is targeting an interactable item, show label
 	if cursor.is_colliding() and cursor.get_collider() is InteractableObject:
-		cursor_label.show()
-		cursor_label.text = cursor.get_collider().ui_label
+		self.cursor_label_update.emit(cursor.get_collider().ui_label)
 	else:
-		cursor_label.hide()
+		self.cursor_label_update.emit()
 	
 	# Current state physics process
 	fsm.state.physics_process(delta)
@@ -135,22 +151,29 @@ func _physics_process(delta):
 	camera.rotation.x = clampf(-deg_to_rad(camera_x_axis), -deg_to_rad(70), deg_to_rad(70))
 	
 	# Move and slide
-	move_and_slide()	
+	move_and_slide()
 
-# Add item label to inventory
-func add_to_inventory(item) -> void:
-	inventory.append(item)
+func _item_received(sender) -> void:
+	match sender:
+		PlayerItem.ITEM_TYPES.Lantern:
+			lantern.show()
 
-# Remove first item from inventory, order doesn't matter (yet)
-func remove_from_inventory() -> void:
-	if inventory:
-		inventory.remove_at(0)
-
-# To be called by game state, if lantern turn on lantern function
-func process_item(item_type) -> void:
-	if item_type == PlayerItem.ITEM_TYPES.Lantern:
-		self.has_lantern = true
-		lantern.show()
+func _use_pills() -> void:
+	self.inventory.consumables.pills -= 1
+	
+	self.stamina_inf = true
+	self.p_speed_on = true
+	if self.stamina_depleted:
+		self.stamina_depleted = false
+	
+	self.animation_player.play("START_PILLS")
+	
+	await get_tree().create_timer(10).timeout
+	
+	self.stamina_inf = false
+	self.p_speed_on = false
+	
+	self.animation_player.play("END_PILLS")
 
 # Helper function to avoid lerp slowing to approach zero
 func _lerp_snap(source: Vector3, destination: Vector3, weight: float) -> Vector3:
