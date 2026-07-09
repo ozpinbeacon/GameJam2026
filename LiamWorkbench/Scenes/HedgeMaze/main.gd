@@ -16,6 +16,7 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	pause_menu.resume.connect(hide_pause_menu)
 	
+	# Connect to player signal to update cursor UI
 	player.cursor_label_update.connect(cursor_label.update_label)
 
 # If ESC is pressed, pause tree and show pause menu
@@ -26,12 +27,14 @@ func _input(event):
 		else:
 			hide_pause_menu()
 
+# Pause all physics processes and hide the in game UI
 func show_pause_menu() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	get_tree().paused = true
 	in_game_ui.hide()
 	pause_menu.show()
 
+# Hide the pause menu, show in game ui and resume all physics
 func hide_pause_menu() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	pause_menu.hide()

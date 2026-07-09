@@ -23,6 +23,7 @@ func physics_process(delta: float) -> void:
 	elif Input.is_action_pressed("sprint") and player.stamina > 0 and not player.stamina_depleted: #Only allow sprinting if not depleted and above 0
 		finished.emit(PlayerState.RUNNING)
 	
+	# If pills are currently in effect, add speed multiplier
 	if player.p_speed_on:
 		player.speed = player.WALK_SPEED * player.P_SPEED
 	

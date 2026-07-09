@@ -4,12 +4,15 @@ extends Label
 @export var player := NodePath("/root/Main/GameWorld/Player")
 @export var enemy := NodePath("/root/Main/GameWorld/Enemy")
 @export var game_state := NodePath("/root/Main/GameWorld")
+@export var altar := NodePath("/root/Main/GameWorld/Environment/Altar")
 @onready var _player := get_node(player)
 @onready var _game_state := get_node(game_state)
 @onready var _enemy := get_node(enemy)
+@onready var _altar := get_node(altar)
 
 func _process(_delta: float) -> void:
 	text = "Game State: " + _game_state.get_state() + "\n"
+	text += "Items on altar: " + str(_altar.current_items) + "\n"
 	text += "Current controls: " + "MKB" if _player.MOUSE_KEYBOARD_CONTROLS else "Controller"
 	text += "\n"
 	text += "Player State: " + _player.fsm.state.label + "\n"

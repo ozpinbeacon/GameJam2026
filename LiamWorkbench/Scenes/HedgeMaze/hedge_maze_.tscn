@@ -109,13 +109,12 @@ process_mode = 1
 script = ExtResource("15_1fblx")
 
 [node name="Sun" type="DirectionalLight3D" parent="GameWorld" unique_id=1925198767]
-transform = Transform3D(1, 0, 0, 0, 0.43523106, 0.90031874, 0, -0.90031874, 0.43523106, 0, 0, 0)
-light_energy = 0.2
-shadow_enabled = true
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0)
+light_color = Color(1, 0, 0, 1)
 sky_mode = 2
 
 [node name="PulsingBlackMoon" parent="GameWorld/Sun" unique_id=784091822 instance=ExtResource("2_d7h8s")]
-transform = Transform3D(5, 0, 0, 0, 4.9999948, -0.0073176622, 0, 0.0073176622, 4.9999948, 0, 0, 800)
+transform = Transform3D(5, 0, 0, 0, 4.9999948, -0.007317663, 0, 0.007317663, 4.9999948, 0, 0, 800)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="GameWorld" unique_id=377565609]
 environment = ExtResource("3_gtu48")
@@ -127,6 +126,7 @@ script = ExtResource("1_vpmvu")
 
 [node name="Lantern" type="StaticBody3D" parent="GameWorld/Environment" unique_id=1510835114]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -73.491)
+visible = false
 script = ExtResource("14_l78py")
 metadata/_custom_type_script = "uid://vfkexi4rwcke"
 

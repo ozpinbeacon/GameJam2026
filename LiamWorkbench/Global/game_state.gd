@@ -62,8 +62,9 @@ func _key_item_collected(sender):
 func _altar_interacted() -> void:
 	# If the player has any items in their inventory, remove it from their inventory and activate the altar
 	if player.inventory:
-		player.remove_from_inventory()
-		altar.item_added()
+		var removed_item = player.inventory.progression_items.remove_from_inventory()
+		if removed_item != "":
+			altar.item_added(removed_item)
 
 # Just a temp test for now
 func _game_over() -> void:

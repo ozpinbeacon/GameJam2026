@@ -30,6 +30,7 @@ func physics_process(delta: float) -> void:
 	elif not player.stamina_inf:
 		player.stamina -= 15 * delta	
 	
+	# If pills are currently in effect, add speed multiplier
 	if player.p_speed_on:
 		player.speed = player.RUN_SPEED * player.P_SPEED
 	

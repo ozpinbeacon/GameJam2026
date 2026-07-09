@@ -61,10 +61,13 @@ var direction = Vector3.ZERO
 var head_y_axis = 0.0
 var camera_x_axis = 0.0
 
+# Export debug variable to editor for testing
 @export var debug = false
 
 func _ready() -> void:
+	# Connect to inventory signal for new items
 	inventory.item_received.connect(_item_received)
+	# If debug, give all items for testing
 	if self.debug:
 		self.inventory.consumables.pills = 99
 		self.inventory.consumables.holy_water = 99
@@ -117,6 +120,7 @@ func _unhandled_input(event):
 	if event.is_action_pressed("yell"):
 		Events.player_noise.emit({"event_type": Events.NoiseType.YELL, "location": global_position})
 	
+	# If any pills are in inventory, run function
 	if event.is_action_pressed("consumable_pills"):
 		if inventory.consumables.pills > 0:
 			_use_pills()
@@ -154,25 +158,33 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _item_received(sender) -> void:
+	# What to do with different items received, likely only used for Key items
 	match sender:
 		PlayerItem.ITEM_TYPES.Lantern:
 			lantern.show()
 
+# When pills are used
 func _use_pills() -> void:
+	# Remove one pill from inventory
 	self.inventory.consumables.pills -= 1
 	
+	# Set infinite stamina, speed multiplier and remove depletion debuff if active
 	self.stamina_inf = true
 	self.p_speed_on = true
 	if self.stamina_depleted:
 		self.stamina_depleted = false
 	
+	# Change camera settings to show pill effect
 	self.animation_player.play("START_PILLS")
 	
+	# Wait for 10 seconds to have pill effect
 	await get_tree().create_timer(10).timeout
 	
+	# Turn off infinite stamina and speed multiplier
 	self.stamina_inf = false
 	self.p_speed_on = false
 	
+	# Return camera to normal
 	self.animation_player.play("END_PILLS")
 
 # Helper function to avoid lerp slowing to approach zero

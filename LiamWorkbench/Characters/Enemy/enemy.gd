@@ -26,6 +26,7 @@ func _ready() -> void:
 func _physics_process(delta) -> void:
 	velocity = Vector3.ZERO
 	
+	# If the last collision is with the player, send a signal to the game state to end the game
 	if not self.get_last_slide_collision() == null and self.get_last_slide_collision().get_collider() is Player:
 		player_caught.emit()
 	
