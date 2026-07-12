@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://4xf4gc0gn5x7"]
+
+[resource]
+resource_name = "TeethLower"
+cull_mode = 2
+roughness = 0.5

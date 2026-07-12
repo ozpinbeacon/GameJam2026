@@ -1,0 +1,153 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://cklfvuxtjvi1g"
+path="res://.godot/imported/Monster.glb-a9302975647a9f26fdbcf58104e2e555.scn"
+
+[deps]
+
+source_file="res://ACTORS/Monster/GLTFs/Monster.glb"
+dest_files=["res://.godot/imported/Monster.glb-a9302975647a9f26fdbcf58104e2e555.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/root_script=null
+mesh_library/use_node_names_as_mesh_names=false
+array_mesh/deduplicate_surfaces=true
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
+_subresources={
+"materials": {
+"Base": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://ACTORS/Monster/Materials/Base.tres",
+"use_external/path": "uid://60usvrt863f6"
+},
+"Eyeballs": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://ACTORS/Monster/Materials/Eyeballs.tres",
+"use_external/path": "uid://cfhtet4skjw4x"
+},
+"Eyeballs.001": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://ACTORS/Monster/Materials/Eyeballs.001.tres",
+"use_external/path": "uid://gybwg012ghei"
+},
+"Material.001": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://ACTORS/Monster/Materials/Material.001.tres",
+"use_external/path": "uid://c3h3udg57qnro"
+},
+"Sack": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://ACTORS/Monster/Materials/Sack.tres",
+"use_external/path": "uid://comkvvf1skqjy"
+},
+"Skin": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://ACTORS/Monster/Materials/Skin.tres",
+"use_external/path": "uid://bmkvacv4mxbdt"
+},
+"TeethLower": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://ACTORS/Monster/Materials/TeethLower.tres",
+"use_external/path": "uid://4xf4gc0gn5x7"
+},
+"TeethUpper": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://ACTORS/Monster/Materials/TeethUpper.tres",
+"use_external/path": "uid://cvrdc12ye6dv8"
+}
+},
+"meshes": {
+"Monster_Body": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://ACTORS/Monster/Meshes/Monster_Body.res",
+"save_to_file/path": "uid://cewtyyp2j46t"
+},
+"Monster_Eyeball_L": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://ACTORS/Monster/Meshes/Monster_Eyeball_L.res",
+"save_to_file/path": "uid://b1ciogaswi3ky"
+},
+"Monster_Eyeball_R": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://ACTORS/Monster/Meshes/Monster_Eyeball_R.res",
+"save_to_file/path": "uid://4sd6cbtcnj0u"
+},
+"Monster_Legs": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://ACTORS/Monster/Meshes/Monster_Legs.res",
+"save_to_file/path": "uid://c3cw0io13q1ag"
+},
+"Monster_Sack": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://ACTORS/Monster/Meshes/Monster_Sack.res",
+"save_to_file/path": "uid://dgxq484kpc2cb"
+},
+"Monster_TeethLower": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://ACTORS/Monster/Meshes/Monster_TeethLower.res",
+"save_to_file/path": "uid://c4647h2nlf3jg"
+},
+"Monster_TeethUpper": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://ACTORS/Monster/Meshes/Monster_TeethUpper.res",
+"save_to_file/path": "uid://bst6g7macq7br"
+}
+}
+}
+gltf/naming_version=2
+gltf/embedded_image_handling=1
+gltf/texture_map_mode=1

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://uwxn2pvl50js"]
+
+[ext_resource type="PackedScene" uid="uid://cklfvuxtjvi1g" path="res://ACTORS/Monster/GLTFs/Monster.glb" id="1_q1n6h"]
+
+[node name="Node3D" type="Node3D" unique_id=714155596]
+
+[node name="Monster" parent="." unique_id=862012641 instance=ExtResource("1_q1n6h")]
+
+[editable path="Monster"]

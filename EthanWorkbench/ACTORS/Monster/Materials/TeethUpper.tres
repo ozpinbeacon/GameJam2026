@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cvrdc12ye6dv8"]
+
+[resource]
+resource_name = "TeethUpper"
+cull_mode = 2
+roughness = 0.5
