@@ -216,8 +216,12 @@ func animate_character()-> void:
 	
 	# Send the new blend position to the anim tree to be applied
 	animation_tree.update_target_blend_value(target_blend_amount)
+	if target_blend_amount >= 0:
+		animation_player.play("Running")
+	else:
+		animation_player.play("Idle")
 
-
+@onready var animation_player: AnimationPlayer = $"../../CharacterMeshes/PlayerHands13_07_1335/AnimationPlayer"
 
 #region In Air Buffer
 var in_air_buffer: float = 0.0

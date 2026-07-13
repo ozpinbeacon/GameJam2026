@@ -67,7 +67,7 @@ fadein_time = 0.2
 fadeout_time = 0.2
 
 [resource]
-graph_offset = Vector2(-71.19582, 83.31677)
+graph_offset = Vector2(-143.3761, 478.1283)
 nodes/output/position = Vector2(2580, 700)
 "nodes/Anim IDLE/node" = SubResource("AnimationNodeAnimation_wm6wr")
 "nodes/Anim IDLE/position" = Vector2(-600, 520)
