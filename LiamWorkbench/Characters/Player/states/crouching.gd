@@ -1,5 +1,7 @@
 extends PlayerState
 
+const CAMERA_BOB_FREQUENCY = 9.0
+const CAMERA_BOB_INTENSITY = 0.05
 
 func _ready() -> void:
 	super._ready()
@@ -7,7 +9,6 @@ func _ready() -> void:
 
 # Set player speed to be slower while crouching
 func enter(_dict = {}) -> void:
-	player.acceleration = player.CROUCH_SPEED
 	player.speed = player.CROUCH_SPEED
 	player.animation_player.play("CROUCH")
 	player.crouched = true
@@ -23,8 +24,11 @@ func input(event) -> void:
 
 # Standard movement and noise emission
 func physics_process(delta: float) -> void:
-	player.direction = Input.get_axis("move_left", "move_right") * player.head.basis.x + Input.get_axis("move_forward", "move_backwards") * player.head.basis.z
-	player.velocity = player._lerp_snap(player.velocity, player.direction * player.speed + player.velocity.y * Vector3.UP, player.acceleration * delta)
+	player._player_movement(delta)
+	
+	if not(player.velocity.x == 0 and player.velocity.z == 0):
+		# Camera bob
+		player._camera_bob(delta)
 	
 	if not (player.velocity.x == 0 and player.velocity.z == 0):
 		Events.player_noise.emit({"event_type": Events.NoiseType.CROUCH_WALK, "location": player.global_position})

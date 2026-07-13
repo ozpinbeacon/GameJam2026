@@ -12,20 +12,24 @@ var CAMERA_ACCELERATION = Settings.player.CAMERA_ACCELERATION
 var MOUSE_KEYBOARD_CONTROLS = Settings.player.MOUSE_KEYBOARD_CONTROLS
 
 # Character base stats - constants
+const ACCELERATION = 2
+const DECELERATION = 3
 const JUMP_IMPULSE = 5
-const WALK_SPEED = 5
-const RUN_SPEED = 12
-const RUN_ACCEL = 1.1
-const CROUCH_SPEED = 3
+const WALK_SPEED = 4
+const RUN_SPEED = 9
+const CROUCH_SPEED = 2
 const AIR_SPEED = 3
 var CROUCH_DIFF = .5
 const BASE_STAMINA = 100
 
 # Character base stats - variables
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var acceleration = WALK_SPEED
 var speed = WALK_SPEED
 var crouched = false
+
+# Camera bob variables
+var camera_bob_index: float = 0.0
+var camera_bob_vector: Vector2 = Vector2.ZERO
 
 # Character stamina system
 const STAMINA_REGEN = 10
@@ -187,10 +191,40 @@ func _use_pills() -> void:
 	# Return camera to normal
 	self.animation_player.play("END_PILLS")
 
+func _camera_bob(delta) -> void:
+	var velocity_magnitude = self.velocity.length()
+	var intensity = velocity_magnitude/40
+	var frequency = -(0.25*(velocity_magnitude*velocity_magnitude)) + (3.3*velocity_magnitude) + 3
+	
+	self.camera_bob_index += frequency * delta / 2
+	self.camera_bob_vector.y = sin(self.camera_bob_index)
+	self.camera_bob_vector.x = (sin(camera_bob_index/2.0))
+	if self.fsm.state.label == "IDLE":
+		camera.position.y = lerp(camera.position.y, 0.0,delta*10)
+		camera.position.x = lerp(camera.position.x, 0.0,delta*10)
+	else:
+		camera.position.y = lerp(camera.position.y, camera_bob_vector.y*(intensity/2),delta*10)
+		camera.position.x = lerp(camera.position.x, camera_bob_vector.x * intensity,delta*10)
+
+func _player_movement(delta) -> void:
+	direction = Input.get_axis("move_left", "move_right") * head.basis.x + Input.get_axis("move_forward", "move_backwards") * head.basis.z
+	if not self.is_on_floor():
+		velocity = velocity.lerp(direction/2 * speed + velocity.y * Vector3.UP, ACCELERATION * delta)
+		return
+	
+	var direction_velocity = direction * speed + velocity.y * Vector3.UP
+	if (velocity.length_squared() - direction_velocity.length_squared()) > 0:
+		if direction.is_zero_approx():
+			velocity = _lerp_snap(velocity, direction_velocity, DECELERATION * delta)
+		else:
+			velocity = _lerp_snap(velocity, direction_velocity, DECELERATION/2.0 * delta)
+	else:
+		velocity = velocity.lerp(direction_velocity, ACCELERATION * delta)
+	
 # Helper function to avoid lerp slowing to approach zero
 func _lerp_snap(source: Vector3, destination: Vector3, weight: float) -> Vector3:
 	var lerp_result = source.lerp(destination, weight)
-	if lerp_result.is_zero_approx():
-		return Vector3.ZERO
-	else:
-		return lerp_result
+	lerp_result.x = 0 if lerp_result.x < 1 and lerp_result.x > -1 else lerp_result.x
+	lerp_result.y = 0 if lerp_result.y < 1 and lerp_result.y > -1 else lerp_result.y
+	lerp_result.z = 0 if lerp_result.z < 1 and lerp_result.z > -1 else lerp_result.z
+	return lerp_result
