@@ -13,8 +13,8 @@ func _ready() -> void:
 	self.rng = RandomNumberGenerator.new()
 
 func _physics_process(delta: float) -> void:
-	# Get a random number from 1 to 3 and lerp the light's energy to that number
-	var rng_n = rng.randf_range(1, 3)
+	# Get a random number deviating from 5 to a max deviation of 3 and lerp the light's energy to that number
+	var rng_n = rng.randfn(5, 3)
 	light.light_energy = lerp(light.light_energy, rng_n, 3 * delta)
 
 func toggle_lantern() -> void:

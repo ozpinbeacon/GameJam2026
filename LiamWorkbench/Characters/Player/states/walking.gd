@@ -1,5 +1,7 @@
 extends PlayerState
 
+const CAMERA_BOB_FREQUENCY = 14
+const CAMERA_BOB_INTENSITY = 0.1
 
 func _ready() -> void:
 	super._ready()
@@ -7,7 +9,6 @@ func _ready() -> void:
 
 # Standard speed
 func enter(_dict = {}) -> void:
-	player.acceleration = player.WALK_SPEED
 	player.speed = player.WALK_SPEED
 
 # Allow player to crouch while walking
@@ -27,8 +28,10 @@ func physics_process(delta: float) -> void:
 	if player.p_speed_on:
 		player.speed = player.WALK_SPEED * player.P_SPEED
 	
-	player.direction = Input.get_axis("move_left", "move_right") * player.head.basis.x + Input.get_axis("move_forward", "move_backwards") * player.head.basis.z
-	player.velocity = player._lerp_snap(player.velocity, player.direction * player.speed + player.velocity.y * Vector3.UP, player.acceleration * delta)
+	player._player_movement(delta)
+	
+	# Camera bob
+	player._camera_bob(delta)
 	
 	# Set to idle if not moving, otherwise emit noise
 	if player.velocity.x == 0 and player.velocity.z == 0:

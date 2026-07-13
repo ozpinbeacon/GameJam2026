@@ -21,6 +21,7 @@ func _process(_delta: float) -> void:
 	text += "Velocity X" + str(_player.velocity.x) + "\n"
 	text += "Velocity Y" + str(_player.velocity.y) + "\n"
 	text += "Velocity Z" + str(_player.velocity.z) + "\n"
+	text += "Velocity Length: " + str(_player.velocity.length_squared()) + "\n"
 	text += "\n"
 	text += "Player Inventory: " + _player.inventory.list_inventory() + "\n"
 	text += "\n"

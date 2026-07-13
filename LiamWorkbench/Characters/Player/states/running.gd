@@ -1,6 +1,7 @@
 extends PlayerState
 
-# TODO Add stamina resource
+const CAMERA_BOB_FREQUENCY = 22.0
+const CAMERA_BOB_INTENSITY = 0.2
 
 func _ready() -> void:
 	super._ready()
@@ -8,7 +9,6 @@ func _ready() -> void:
 
 # Increase speed for running
 func enter(_dict = {}) -> void:
-	player.acceleration *= player.RUN_ACCEL
 	player.speed = player.RUN_SPEED
 
 func physics_process(delta: float) -> void:
@@ -34,8 +34,10 @@ func physics_process(delta: float) -> void:
 	if player.p_speed_on:
 		player.speed = player.RUN_SPEED * player.P_SPEED
 	
-	player.direction = Input.get_axis("move_left", "move_right") * player.head.basis.x + Input.get_axis("move_forward", "move_backwards") * player.head.basis.z
-	player.velocity = player._lerp_snap(player.velocity, player.direction * player.speed + player.velocity.y * Vector3.UP, player.acceleration * delta)
+	player._player_movement(delta)
+	
+	# Camera bob
+	player._camera_bob(delta)
 	
 	# Noise emission
 	Events.player_noise.emit({"event_type": Events.NoiseType.RUN, "location": player.global_position})
