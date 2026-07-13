@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://qeikjdj32f1g" path="res://Characters/Enemy/enemy.tscn" id="13_l78py"]
 [ext_resource type="Script" uid="uid://dsviu2gcranot" path="res://Scenes/HedgeMaze/Props/Altar/altar.gd" id="14_2artc"]
 [ext_resource type="Script" uid="uid://sge1t4mef8ok" path="res://Scenes/Testing/debug_label.gd" id="14_eod0s"]
-[ext_resource type="Script" uid="uid://ds76i0niq2132" path="res://Scenes/HedgeMaze/Props/Lantern/lantern.gd" id="14_l78py"]
+[ext_resource type="Script" uid="uid://ds76i0niq2132" path="res://Scenes/HedgeMaze/Props/Lantern-OLD/lantern.gd" id="14_l78py"]
 [ext_resource type="Script" uid="uid://de4kiibn0bicj" path="res://Global/game_state.gd" id="15_1fblx"]
 [ext_resource type="PackedScene" uid="uid://dp7rvcpaeugi1" path="res://Scenes/PauseMenu/pause_menu.tscn" id="15_l78py"]
 [ext_resource type="Script" uid="uid://b7dd57hxqop50" path="res://Scenes/HedgeMaze/Props/Pills/pills.gd" id="15_vuix8"]
