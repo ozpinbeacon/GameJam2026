@@ -76,7 +76,7 @@ func move_character(delta: float)-> void:
 	
 	player.orientation.origin = Vector3()
 	player.orientation = player.orientation.orthonormalized()
-	player.player_model.global_transform.basis = player.orientation.basis
+	#player.player_model.global_transform.basis = player.orientation.basis
 
 
 

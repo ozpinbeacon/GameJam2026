@@ -162,7 +162,7 @@ func clean_up_new_rotation_and_apply_to_mesh()-> void:
 	player.orientation = player.orientation.orthonormalized()
 	
 	# Apply the cleaned up orientation to the mesh
-	player.player_model.global_transform.basis = player.orientation.basis
+	#player.player_model.global_transform.basis = player.orientation.basis
 
 #endregion
 
