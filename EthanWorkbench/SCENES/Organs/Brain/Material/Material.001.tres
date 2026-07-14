@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b2jhjd4h72jty"]
+
+[ext_resource type="Texture2D" uid="uid://bj1xl7wm2hnix" path="res://SCENES/Organs/Brain/GLTF/Brain_HiPolyBrainBakedImage.png" id="1_sgpsw"]
+
+[resource]
+resource_name = "Material.001"
+cull_mode = 2
+albedo_color = Color(0.5960858, 0.4917616, 0.4917616, 1)
+roughness = 0.36818182
+normal_enabled = true
+normal_texture = ExtResource("1_sgpsw")

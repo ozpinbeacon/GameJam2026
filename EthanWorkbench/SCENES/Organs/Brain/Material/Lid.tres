@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bccr643tm11vr"]
+
+[resource]
+resource_name = "Lid"
+cull_mode = 2
+albedo_color = Color(0.6455675, 0.62101346, 0.54733586, 1)
+metallic = 0.8951613

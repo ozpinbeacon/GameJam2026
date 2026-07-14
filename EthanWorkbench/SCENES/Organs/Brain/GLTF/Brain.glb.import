@@ -1,0 +1,111 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://cixt5jgxpsxnt"
+path="res://.godot/imported/Brain.glb-5cee4bc92cb6b9815ba8591d6257c02e.scn"
+
+[deps]
+
+source_file="res://SCENES/Organs/Brain/GLTF/Brain.glb"
+dest_files=["res://.godot/imported/Brain.glb-5cee4bc92cb6b9815ba8591d6257c02e.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/root_script=null
+mesh_library/use_node_names_as_mesh_names=false
+array_mesh/deduplicate_surfaces=true
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=true
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
+_subresources={
+"materials": {
+"Glass": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://SCENES/Organs/Brain/Material/Glass.tres",
+"use_external/path": "uid://ceututx7jyxtf"
+},
+"GlassSolidBits": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://SCENES/Organs/Brain/Material/GlassSolidBits.tres",
+"use_external/path": "uid://x8mobulmkfsh"
+},
+"Lid": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://SCENES/Organs/Brain/Material/Lid.tres",
+"use_external/path": "uid://bccr643tm11vr"
+},
+"Material.001": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://SCENES/Organs/Brain/Material/Material.001.tres",
+"use_external/path": "uid://b2jhjd4h72jty"
+},
+"Material.002": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://SCENES/Organs/Brain/Material/Material.002.tres",
+"use_external/path": "uid://ott8p277b6ar"
+}
+},
+"meshes": {
+"Brain_Cube_001": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://SCENES/Organs/Brain/Mesh/Brain_Cube_001.res",
+"save_to_file/path": "uid://ddwopum6uts1f"
+},
+"Brain_Cylinder": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://SCENES/Organs/Brain/Mesh/Brain_Cylinder.res",
+"save_to_file/path": "uid://calnfvmtcw8f6"
+},
+"Brain_Cylinder_001": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://SCENES/Organs/Brain/Mesh/Brain_Cylinder_001.res",
+"save_to_file/path": "uid://bvhue1t7810nv"
+},
+"Brain_Plane": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://SCENES/Organs/Brain/Mesh/Brain_Plane.res",
+"save_to_file/path": "uid://dx6uq71t4gvr3"
+}
+}
+}
+gltf/naming_version=2
+gltf/embedded_image_handling=3
+gltf/texture_map_mode=1
