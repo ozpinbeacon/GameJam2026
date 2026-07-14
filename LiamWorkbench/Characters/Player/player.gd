@@ -46,7 +46,10 @@ const P_SPEED = 1.2
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var cursor = $Head/Camera3D/Cursor
-@onready var hand = $Hand
+
+# Hands import variables
+@onready var hands = $Hands
+@onready var hands_ap = $Hands/AnimationPlayer
 
 # State Machine
 @onready var fsm = $StateMachine
@@ -55,7 +58,9 @@ const P_SPEED = 1.2
 @onready var animation_player = $AnimationPlayer
 
 # Character item variables
-@onready var lantern = $Hand/Lantern
+@onready var lantern = $Hands/Lantern
+@onready var lantern_joint = $Hands/LanternJoint
+var lantern_last_position: Vector3
 
 # Character inventory
 @onready var inventory = $Inventory
@@ -77,6 +82,8 @@ func _ready() -> void:
 		self.inventory.consumables.holy_water = 99
 		self.inventory.key_items.lantern = true
 		self.lantern.show()
+	
+	lantern_last_position = lantern_joint.global_position
 
 func _process(delta):
 	# Regenerate stamina
@@ -151,8 +158,10 @@ func _physics_process(delta):
 	fsm.state.physics_process(delta)
 
 	# Lerp hand movement
-	hand.rotation.y = lerp(hand.rotation.y, -deg_to_rad(head_y_axis), CAMERA_ACCELERATION * delta)
-	hand.rotation.x = lerp(hand.rotation.x, -deg_to_rad(camera_x_axis), CAMERA_ACCELERATION * delta)
+	hands.rotation.y = lerp(hands.rotation.y, -deg_to_rad(head_y_axis), CAMERA_ACCELERATION * delta)
+	#hands.rotation.x = lerp(hands.rotation.x, -deg_to_rad(camera_x_axis), CAMERA_ACCELERATION * delta)
+	
+	_lantern_move()
 
 	# Camera movement
 	head.rotation.y = -deg_to_rad(head_y_axis)
@@ -166,6 +175,12 @@ func _item_received(sender) -> void:
 	match sender:
 		PlayerItem.ITEM_TYPES.Lantern:
 			lantern.show()
+
+func _lantern_move():
+	if not lantern_last_position.is_equal_approx(lantern_joint.global_position):
+		var changed_position = lantern_last_position.direction_to(lantern_joint.global_position)
+		lantern.apply_central_force(-changed_position)
+		lantern_last_position = lantern_joint.global_position
 
 # When pills are used
 func _use_pills() -> void:
@@ -202,9 +217,13 @@ func _camera_bob(delta) -> void:
 	if self.fsm.state.label == "IDLE":
 		camera.position.y = lerp(camera.position.y, 0.0,delta*10)
 		camera.position.x = lerp(camera.position.x, 0.0,delta*10)
+		hands.position.y = lerp(hands.position.y, 0.0, delta*10)
+		hands.position.x = lerp(hands.position.x, 0.0, delta*10)
 	else:
 		camera.position.y = lerp(camera.position.y, camera_bob_vector.y*(intensity/2),delta*10)
 		camera.position.x = lerp(camera.position.x, camera_bob_vector.x * intensity,delta*10)
+		hands.position.y = lerp(hands.position.y, camera_bob_vector.y*(intensity/4), delta*10)
+		hands.position.x = lerp(hands.position.x, -camera_bob_vector.x*(intensity/2), delta*10)
 
 func _player_movement(delta) -> void:
 	direction = Input.get_axis("move_left", "move_right") * head.basis.x + Input.get_axis("move_forward", "move_backwards") * head.basis.z

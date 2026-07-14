@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://qotj2tagmijk"]
 
-[ext_resource type="Script" uid="uid://jwcoclirw8rm" path="res://Characters/Player/player_lantern.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://cns1eptej2qn" path="res://Characters/Player/player.gd" id="1_r5ew0"]
 [ext_resource type="Script" uid="uid://d4hewtsnn2ctv" path="res://Global/state_machine.gd" id="2_j341n"]
 [ext_resource type="Shader" uid="uid://iykf0fi6cnpp" path="res://Assets/Shaders/pills.gdshader" id="2_va6lm"]
+[ext_resource type="PackedScene" uid="uid://cdav42vimh1w7" path="res://Characters/Player/Assets/PlayerHands.glb" id="3_b71o8"]
 [ext_resource type="Script" uid="uid://cgw2e7g3245ho" path="res://Characters/Player/states/idle.gd" id="3_cue0d"]
 [ext_resource type="Script" uid="uid://dqbaskg2o5nnu" path="res://Characters/Player/states/walking.gd" id="4_bqsbk"]
+[ext_resource type="PackedScene" uid="uid://v14ih7hfhgcy" path="res://Scenes/HedgeMaze/Props/Lantern/lantern.glb" id="5_x58m1"]
 [ext_resource type="Script" uid="uid://c1htvagogacfc" path="res://Characters/Player/states/running.gd" id="5_xf5fp"]
 [ext_resource type="Script" uid="uid://bv8qw6jrdor8n" path="res://Characters/Player/states/crouching.gd" id="6_osktb"]
 [ext_resource type="Script" uid="uid://vuev4hn8m7rm" path="res://Characters/Player/states/jumping.gd" id="7_7vev3"]
@@ -19,18 +20,12 @@ shader = ExtResource("2_va6lm")
 shader_parameter/enabled = true
 shader_parameter/ca_amount = 0.0
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_aex8v"]
-top_radius = 0.1
-bottom_radius = 0.1
-height = 0.15
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_aex8v"]
+height = 0.3
+radius = 0.07
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sh265"]
-albedo_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_va6lm"]
-top_radius = 0.1
-bottom_radius = 0.1
-height = 0.15
+[sub_resource type="SphereShape3D" id="SphereShape3D_aex8v"]
+radius = 0.01
 
 [sub_resource type="Animation" id="Animation_r5ew0"]
 resource_name = "CROUCH"
@@ -45,18 +40,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [1.6, 1.2]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hand:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [1.2, 0.8]
 }
 
 [sub_resource type="Animation" id="Animation_b71o8"]
@@ -103,46 +86,34 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hand:position:y")
+tracks/1/path = NodePath("Head/Camera3D:fov")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1.2]
+"update": 0,
+"values": [75.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Head/Camera3D:fov")
+tracks/2/path = NodePath("Head/Camera3D/CanvasLayer/ColorRect:material:shader_parameter/ca_amount")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [75.0]
+"values": [0.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Head/Camera3D/CanvasLayer/ColorRect:material:shader_parameter/ca_amount")
+tracks/3/path = NodePath("Head/Camera3D:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Head/Camera3D:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -190,18 +161,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [1.2, 1.6]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hand:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.8, 1.2]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u2wkb"]
 _data = {
@@ -225,7 +184,6 @@ shape = SubResource("CapsuleShape3D_4flbx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=2044791138]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 
 [node name="Cursor" type="RayCast3D" parent="Head/Camera3D" unique_id=1784572006]
 transform = Transform3D(3, 0, 0, 0, -1.3113416e-07, -3, 0, 3, -1.3113416e-07, 0, 0, 0)
@@ -243,14 +201,77 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Hand" type="Node3D" parent="." unique_id=2113815810]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.1)
+[node name="Hands" parent="." unique_id=818637947 instance=ExtResource("3_b71o8")]
 
-[node name="Lantern" type="Node3D" parent="Hand" unique_id=173678321]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.5)
-script = ExtResource("1_4flbx")
+[node name="Skeleton3D" parent="Hands/Armature" parent_id_path=PackedInt32Array(818637947, 150631755) index="0" unique_id=570172756]
+bones/0/rotation = Quaternion(0.5555103, -0.08290033, -0.4193544, 0.71321654)
+bones/1/rotation = Quaternion(0.029693794, 0.68343836, -0.077051215, 0.72532296)
+bones/2/rotation = Quaternion(0.02997364, -0.59905356, 0.43150932, 0.67382205)
+bones/3/rotation = Quaternion(-0.025694117, 0.43750584, 0.24640298, 0.8644155)
+bones/3/scale = Vector3(0.99539727, 0.950875, 1.0887114)
+bones/4/position = Vector3(0.045595746, 0.11631134, -0.003543518)
+bones/4/rotation = Quaternion(0.003345902, -0.678816, -0.14309083, 0.720224)
+bones/5/rotation = Quaternion(0.014989842, 0.006254331, -0.08778044, 0.99600744)
+bones/6/rotation = Quaternion(0.02457855, -0.03214118, 0.055079132, 0.9976618)
+bones/8/position = Vector3(0.01384037, 0.1235908, -0.0011334306)
+bones/8/rotation = Quaternion(-0.003727396, -0.68023694, -0.13849282, 0.7197803)
+bones/9/rotation = Quaternion(0.05570988, -0.0005766722, -0.04128343, 0.997593)
+bones/10/rotation = Quaternion(-0.016778415, 0.0030004117, 0.081323795, 0.996542)
+bones/12/position = Vector3(-0.014838285, 0.12868612, 0.004209708)
+bones/12/rotation = Quaternion(0.01826133, -0.684275, -0.057156943, 0.72675127)
+bones/13/rotation = Quaternion(-0.0062381173, -0.010778249, -0.08490447, 0.99631137)
+bones/16/position = Vector3(-0.048800293, 0.1281682, 0.01151247)
+bones/16/rotation = Quaternion(0.07595949, -0.6876164, -0.034300406, 0.72127485)
+bones/17/rotation = Quaternion(-0.030613668, -0.0064952928, -0.049310483, 0.9982931)
+bones/18/rotation = Quaternion(0.021065664, 0.003439566, 0.03480267, 0.99916625)
+bones/21/rotation = Quaternion(0.093223564, 0.10512082, 0.00043252076, 0.9900802)
+bones/22/rotation = Quaternion(0.009520285, 0.0025144124, -0.019568404, 0.99976003)
+bones/24/rotation = Quaternion(0.12186743, 0.556929, 0.039760865, 0.8206081)
+bones/24/scale = Vector3(0.9946787, 1.0018395, 1.0054116)
+bones/26/rotation = Quaternion(0.526848, 0.14839816, 0.41950488, 0.7241718)
+bones/27/rotation = Quaternion(0.026770059, -0.6829462, 0.06070961, 0.7274492)
+bones/28/rotation = Quaternion(0.018333895, 0.6363836, -0.29003912, 0.71453273)
+bones/29/rotation = Quaternion(0.08473663, -0.3856638, -0.317529, 0.8621245)
+bones/29/scale = Vector3(1.0141537, 0.9426671, 1.0755574)
+bones/30/position = Vector3(-0.0440244, 0.1242081, -0.013809342)
+bones/30/rotation = Quaternion(0.16969158, 0.65727246, 0.31532374, 0.6631505)
+bones/31/rotation = Quaternion(0.012998607, -0.00973895, 0.32932496, 0.944077)
+bones/32/rotation = Quaternion(0.031709373, 0.025133256, 0.1912322, 0.98071057)
+bones/34/position = Vector3(-0.01290632, 0.13158497, -0.007305039)
+bones/34/rotation = Quaternion(0.1629948, 0.66043085, 0.31056842, 0.66393614)
+bones/35/rotation = Quaternion(0.04487353, -0.022924796, 0.3435216, 0.93779206)
+bones/36/rotation = Quaternion(-0.016893312, 0.00226586, 0.22683407, 0.9737843)
+bones/38/position = Vector3(0.015315293, 0.13533787, 0.0006725411)
+bones/38/rotation = Quaternion(0.22309457, 0.64714336, 0.27295902, 0.6759643)
+bones/39/rotation = Quaternion(-0.045125075, -0.009264121, 0.6365175, 0.7698853)
+bones/40/rotation = Quaternion(0.036690995, 0.015452858, 0.54746634, 0.8358802)
+bones/42/position = Vector3(0.04964464, 0.13687746, -0.005921932)
+bones/42/rotation = Quaternion(0.27380437, 0.63530874, 0.24381505, 0.6796825)
+bones/43/rotation = Quaternion(-0.016539209, -0.088259906, 0.63533336, 0.76699954)
+bones/44/rotation = Quaternion(0.035549134, -0.05371928, 0.33486712, 0.940061)
+bones/46/rotation = Quaternion(-0.0070429295, -0.6004213, -0.38220048, 0.7024012)
+bones/47/rotation = Quaternion(0.39644423, -0.06191017, -0.24033386, 0.8838772)
+bones/48/rotation = Quaternion(0.28263798, 0.002934349, 0.01950983, 0.9590237)
+bones/50/rotation = Quaternion(0.13902281, -0.5669517, -0.07177877, 0.80875593)
+bones/50/scale = Vector3(0.9872902, 1.0082469, 1.0076692)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Hand/Lantern" unique_id=2121299291]
+[node name="Lantern" type="RigidBody3D" parent="Hands" unique_id=643334561]
+auto_translate_mode = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.23592877, 1.1684355, -0.4127069)
+collision_layer = 0
+collision_mask = 0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.15, 0)
+
+[node name="Model" parent="Hands/Lantern" unique_id=1989601695 instance=ExtResource("5_x58m1")]
+auto_translate_mode = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/Lantern" unique_id=748146558]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("CylinderShape3D_aex8v")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Hands/Lantern" unique_id=2121299291]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22132707, 1.2114505, -0.36334857)
 light_color = Color(0.9019608, 0.3137255, 0, 1)
 light_energy = 5.0
 light_volumetric_fog_energy = 0.2
@@ -260,15 +281,21 @@ spot_range = 100.0
 spot_attenuation = 0.1
 spot_angle = 75.27
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Hand/Lantern" unique_id=1790839258]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
-mesh = SubResource("CylinderMesh_aex8v")
-surface_material_override/0 = SubResource("StandardMaterial3D_sh265")
+[node name="LanternJoint" type="StaticBody3D" parent="Hands" unique_id=405310038]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24296644, 1.3799413, -0.40348646)
+collision_layer = 0
+collision_mask = 0
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Hand/Lantern" unique_id=1956083318]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-mesh = SubResource("CylinderMesh_va6lm")
-surface_material_override/0 = SubResource("StandardMaterial3D_sh265")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hands/LanternJoint" unique_id=2127120966]
+shape = SubResource("SphereShape3D_aex8v")
+
+[node name="HingeJoint3D" type="HingeJoint3D" parent="Hands" unique_id=1177573153]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24296644, 1.3799413, -0.40348646)
+node_a = NodePath("../LanternJoint")
+node_b = NodePath("../Lantern")
+angular_limit/enable = true
+angular_limit/upper = 1.0471976
+angular_limit/lower = -1.0471976
 
 [node name="StateMachine" type="Node" parent="." unique_id=970603131]
 script = ExtResource("2_j341n")
@@ -297,3 +324,5 @@ libraries/ = SubResource("AnimationLibrary_u2wkb")
 [node name="Inventory" type="Node" parent="." unique_id=1205462522]
 script = ExtResource("10_yhol4")
 metadata/_custom_type_script = "uid://tj35bxqc5gf8"
+
+[editable path="Hands"]
