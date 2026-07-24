@@ -1,0 +1,230 @@
+[gd_scene format=3 uid="uid://04fsjjn8gdr"]
+
+[ext_resource type="Environment" uid="uid://sohs7nedqja6" path="res://ENVIRONMENT/WorldEnvironmentSetups/HedgeMazeDarkEnvironment.tres" id="1_6gka1"]
+[ext_resource type="Script" uid="uid://dwhrqcuj4bexg" path="res://ACTORS/Monster/monsterV2.gd" id="1_q8cx3"]
+[ext_resource type="PackedScene" uid="uid://dqipiayuq1r5q" path="res://ACTORS/Monster/GLTFs/MonsterWalk.glb" id="1_vs374"]
+[ext_resource type="Script" uid="uid://roxv7tm8ciyc" path="res://ACTORS/Monster/mosnter_animation_tree.gd" id="2_6gka1"]
+[ext_resource type="AudioStream" uid="uid://bjpojyt3sgt3d" path="res://ACTORS/Monster/SFX/LowEndFootSteps.wav" id="5_7og0w"]
+[ext_resource type="AudioStream" uid="uid://b200klo1m282e" path="res://ACTORS/Monster/SFX/TopEndFootSteps.wav" id="6_7bofk"]
+[ext_resource type="AudioStream" uid="uid://bu6k21613x4l6" path="res://ACTORS/Monster/SFX/MonsterScream.wav" id="7_7og0w"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_827sq"]
+graph_offset = Vector2(-201.64539, -14.715088)
+nodes/output/position = Vector2(720, 140)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ofoh4"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeBlend3" id="AnimationNodeBlend3_q8cx3"]
+sync = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7og0w"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6gka1"]
+animation = &"Scream"
+use_custom_timeline = true
+timeline_length = 1.5
+stretch_time_scale = true
+start_offset = 0.0
+loop_mode = 0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_827sq"]
+animation = &"Scream"
+use_custom_timeline = true
+timeline_length = 1.5
+stretch_time_scale = true
+start_offset = 0.0
+loop_mode = 0
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_ofoh4"]
+fadein_time = 0.1
+fadeout_time = 0.15
+break_loop_at_end = true
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_q8cx3"]
+filter_enabled = true
+filters = ["Armature/Skeleton3D:Bicep.L", "Armature/Skeleton3D:Bicep.R", "Armature/Skeleton3D:Chest", "Armature/Skeleton3D:Elbow.L", "Armature/Skeleton3D:Elbow.R", "Armature/Skeleton3D:Forearm.L", "Armature/Skeleton3D:Forearm.R", "Armature/Skeleton3D:Hand.L", "Armature/Skeleton3D:Hand.R", "Armature/Skeleton3D:Head", "Armature/Skeleton3D:Middle1.L", "Armature/Skeleton3D:Middle1.R", "Armature/Skeleton3D:Middle2.L", "Armature/Skeleton3D:Middle2.R", "Armature/Skeleton3D:Middle3.L", "Armature/Skeleton3D:Middle3.R", "Armature/Skeleton3D:MouthBottom", "Armature/Skeleton3D:Mouth_Top", "Armature/Skeleton3D:Neck", "Armature/Skeleton3D:Pinky1.L", "Armature/Skeleton3D:Pinky1.R", "Armature/Skeleton3D:Pinky2.L", "Armature/Skeleton3D:Pinky2.R", "Armature/Skeleton3D:Pinky3.L", "Armature/Skeleton3D:Pinky3.R", "Armature/Skeleton3D:Pointer1.L", "Armature/Skeleton3D:Pointer1.R", "Armature/Skeleton3D:Pointer2.L", "Armature/Skeleton3D:Pointer2.R", "Armature/Skeleton3D:Pointer3.L", "Armature/Skeleton3D:Pointer3.R", "Armature/Skeleton3D:Ring1.L", "Armature/Skeleton3D:Ring1.R", "Armature/Skeleton3D:Ring2.L", "Armature/Skeleton3D:Ring2.R", "Armature/Skeleton3D:Ring3.L", "Armature/Skeleton3D:Ring3.R", "Armature/Skeleton3D:Shoulder.L", "Armature/Skeleton3D:Shoulder.R", "Armature/Skeleton3D:Thumb1.L", "Armature/Skeleton3D:Thumb2.L", "Armature/Skeleton3D:Thumb3.L"]
+fadein_time = 0.1
+fadeout_time = 0.1
+break_loop_at_end = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7bofk"]
+animation = &"Walk"
+use_custom_timeline = true
+timeline_length = 1.7999999999999998
+stretch_time_scale = true
+start_offset = 0.0
+loop_mode = 1
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_yw30o"]
+graph_offset = Vector2(-440.275, -234.50432)
+nodes/output/position = Vector2(850, 80)
+nodes/Walk/node = SubResource("AnimationNodeAnimation_7bofk")
+nodes/Walk/position = Vector2(-540, 140)
+nodes/IdleWalkRun/node = SubResource("AnimationNodeBlend3_q8cx3")
+nodes/IdleWalkRun/position = Vector2(-80, 80)
+nodes/Run/node = SubResource("AnimationNodeAnimation_7og0w")
+nodes/Run/position = Vector2(-530, 410)
+nodes/Idle/node = SubResource("AnimationNodeAnimation_ofoh4")
+nodes/Idle/position = Vector2(-540, -140)
+nodes/ScreamOneShot/node = SubResource("AnimationNodeOneShot_ofoh4")
+nodes/ScreamOneShot/position = Vector2(170, -450)
+nodes/ScreamWhileMovingOneShot/node = SubResource("AnimationNodeOneShot_q8cx3")
+nodes/ScreamWhileMovingOneShot/position = Vector2(420, -460)
+"nodes/ScreamAnim 2/node" = SubResource("AnimationNodeAnimation_6gka1")
+"nodes/ScreamAnim 2/position" = Vector2(190, -150)
+nodes/ScreamAnim/node = SubResource("AnimationNodeAnimation_827sq")
+nodes/ScreamAnim/position = Vector2(470, -130)
+node_connections = [&"output", 0, &"ScreamWhileMovingOneShot", &"IdleWalkRun", 0, &"Idle", &"IdleWalkRun", 1, &"Walk", &"IdleWalkRun", 2, &"Run", &"ScreamOneShot", 0, &"IdleWalkRun", &"ScreamOneShot", 1, &"ScreamAnim 2", &"ScreamWhileMovingOneShot", 0, &"ScreamOneShot", &"ScreamWhileMovingOneShot", 1, &"ScreamAnim"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pwilm"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rjxdl"]
+advance_condition = &"is_using_example_blend_tree"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_if65m"]
+advance_condition = &"is_using_movement_blend_tree"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_j7oc2"]
+states/ExampleStateNode/node = SubResource("AnimationNodeBlendTree_827sq")
+states/ExampleStateNode/position = Vector2(616.5, 97)
+states/Movement/node = SubResource("AnimationNodeBlendTree_yw30o")
+states/Movement/position = Vector2(399.5, 99)
+transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_pwilm"), "Movement", "ExampleStateNode", SubResource("AnimationNodeStateMachineTransition_rjxdl"), "ExampleStateNode", "Movement", SubResource("AnimationNodeStateMachineTransition_if65m")]
+graph_offset = Vector2(71.93014, 0)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pb32r"]
+height = 3.3483887
+radius = 3.1230469
+
+[node name="MonsterV2" type="Node3D" unique_id=1629460631]
+script = ExtResource("1_q8cx3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=574383792]
+transform = Transform3D(0.97514933, 0.212315, 0.063293844, 0, 0.28568837, -0.9583226, -0.22154856, 0.9345076, 0.27858883, 0, 0, 0)
+light_color = Color(0.74, 0.074000016, 0.074000016, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1133506371]
+environment = ExtResource("1_6gka1")
+
+[node name="MonsterWalk" parent="." unique_id=581789873 instance=ExtResource("1_vs374")]
+
+[node name="Skeleton3D" parent="MonsterWalk/Armature" parent_id_path=PackedInt32Array(581789873, 820280990) index="0" unique_id=1677653609]
+bones/0/position = Vector3(0.16235456, 0.016195768, 0.3382956)
+bones/0/rotation = Quaternion(0.7032588, 7.5106e-05, 7.3015675e-05, 0.710934)
+bones/2/position = Vector3(3.1223055e-05, 1.3586376, -0.009132563)
+bones/2/rotation = Quaternion(-0.0039459844, -5.5542227e-05, -5.7906454e-05, 0.99999225)
+bones/3/rotation = Quaternion(-0.07914024, 9.102565e-15, -1.8868501e-08, 0.9968635)
+bones/4/rotation = Quaternion(0.17919911, 0.0012656539, 0.00023058245, 0.983812)
+bones/4/scale = Vector3(0.99999994, 1.0000005, 1.0000002)
+bones/5/rotation = Quaternion(0.62494075, -0.0011437917, 0.0008932924, 0.7806708)
+bones/6/rotation = Quaternion(-0.029153964, -3.2181813e-07, 1.0943153e-06, 0.999575)
+bones/12/rotation = Quaternion(0.045675624, 0.106772035, -0.6984536, 0.7061701)
+bones/13/rotation = Quaternion(0.36716712, 0.8598857, -0.28234106, 0.21463598)
+bones/14/rotation = Quaternion(0.13026716, -0.019518537, 0.12581322, 0.9832704)
+bones/15/rotation = Quaternion(0.12885018, -0.043592405, 0.111920014, 0.98436344)
+bones/16/rotation = Quaternion(0.048428442, -0.0635149, -0.04441016, 0.9958154)
+bones/17/position = Vector3(-0.00038659395, 0.10978374, -0.03785528)
+bones/17/rotation = Quaternion(-0.07079673, -0.00035676366, -0.052664526, 0.9960995)
+bones/18/rotation = Quaternion(2.2805553e-07, -1.9514207e-06, -0.0011851925, 0.9999993)
+bones/19/rotation = Quaternion(-2.536066e-07, 3.2623968e-06, -0.0011807429, 0.9999994)
+bones/21/position = Vector3(-0.000338666, 0.11699552, -0.015169197)
+bones/21/rotation = Quaternion(-0.069404945, 0.00089642627, -0.034466047, 0.99699265)
+bones/22/rotation = Quaternion(-6.588913e-08, 6.988227e-07, -0.0011830723, 0.99999934)
+bones/23/rotation = Quaternion(-2.172772e-09, -2.076142e-06, -0.0011853224, 0.9999993)
+bones/25/position = Vector3(0.0019827737, 0.123628765, 0.0070175203)
+bones/25/rotation = Quaternion(-0.05555621, 0.0011088608, -0.026451297, 0.9981046)
+bones/26/rotation = Quaternion(-2.8404543e-08, -1.4259193e-06, -0.0011852068, 0.99999934)
+bones/27/rotation = Quaternion(-4.7041286e-08, 1.400802e-06, -0.0011820681, 0.99999934)
+bones/29/position = Vector3(0.0061587114, 0.11984103, 0.03225847)
+bones/29/rotation = Quaternion(-0.028273005, -0.00025607043, -0.03209334, 0.9990849)
+bones/30/rotation = Quaternion(1.2744499e-07, 2.964187e-07, -0.0011819496, 0.99999934)
+bones/31/rotation = Quaternion(-3.4973942e-07, 1.0729949e-06, -0.0011816373, 0.9999994)
+bones/33/rotation = Quaternion(0.15956551, -0.034776617, -0.22892646, 0.9596469)
+bones/34/rotation = Quaternion(-0.0058397795, 0.00089927216, -0.017862143, 0.99982303)
+bones/35/rotation = Quaternion(-0.003015798, 9.519651e-07, -0.009252513, 0.99995273)
+bones/37/rotation = Quaternion(0.04477632, -0.10586314, 0.6985118, 0.7063069)
+bones/38/rotation = Quaternion(0.42800692, -0.5150395, 0.31768328, 0.67128366)
+bones/39/rotation = Quaternion(0.12120195, 0.036999937, -0.11466662, 0.9852882)
+bones/40/rotation = Quaternion(0.122373134, 0.083176106, -0.09448006, 0.9844695)
+bones/41/rotation = Quaternion(0.04536958, 0.121923916, 0.022562945, 0.9912452)
+bones/42/position = Vector3(0.0006519367, 0.10991606, -0.037868824)
+bones/42/rotation = Quaternion(-0.07024543, 0.0051521864, 0.16841772, 0.9831961)
+bones/43/rotation = Quaternion(4.4684342e-07, 1.889628e-06, 0.11750053, 0.99307287)
+bones/44/rotation = Quaternion(-6.315145e-07, -3.192914e-06, 0.117496155, 0.99307334)
+bones/46/position = Vector3(0.0005018744, 0.11681608, -0.015148211)
+bones/46/rotation = Quaternion(-0.06895534, 0.004069599, 0.15042876, 0.9862048)
+bones/47/rotation = Quaternion(-1.6035474e-07, -7.057012e-07, 0.11750677, 0.9930721)
+bones/48/rotation = Quaternion(2.2031223e-07, 2.0434438e-06, 0.11750901, 0.9930719)
+bones/50/position = Vector3(-0.0028902919, 0.12361425, 0.007014539)
+bones/50/rotation = Quaternion(-0.055281024, 0.005469956, 0.14241703, 0.9882467)
+bones/51/rotation = Quaternion(1.425998e-07, 1.4079667e-06, 0.11754896, 0.99306715)
+bones/52/rotation = Quaternion(-1.9608885e-07, -1.3870055e-06, 0.11754584, 0.9930675)
+bones/54/position = Vector3(-0.0061636665, 0.119303904, 0.03231883)
+bones/54/rotation = Quaternion(-0.028268246, 0.0099966675, 0.14777851, 0.9885659)
+bones/55/rotation = Quaternion(1.0980665e-07, -3.22696e-07, 0.11737339, 0.99308795)
+bones/56/rotation = Quaternion(-4.7444775e-07, -1.0190719e-06, 0.11737307, 0.99308795)
+bones/62/position = Vector3(0.11969577, 1.3313497, -0.027808787)
+bones/62/rotation = Quaternion(0.97922033, 0.020942573, -0.0035123464, 0.20168462)
+bones/63/rotation = Quaternion(0.38601175, 0.00059695897, 0.009168044, 0.92244816)
+bones/64/rotation = Quaternion(-0.44480243, 0.0006559801, -0.002041185, 0.8956261)
+bones/65/rotation = Quaternion(-0.010233291, 0.000109443376, 0.012210298, 0.99987316)
+bones/67/position = Vector3(-0.11963433, 1.3313755, -0.02782427)
+bones/67/rotation = Quaternion(0.99962944, -0.02170687, -0.0024132337, -0.016253049)
+bones/68/rotation = Quaternion(0.4213154, -0.0006841921, -0.009935641, 0.90685946)
+bones/69/rotation = Quaternion(-0.48430175, -0.0007270044, 0.002298161, 0.87489784)
+bones/70/rotation = Quaternion(-0.20986973, 0.0049496507, -0.01132904, 0.9776512)
+bones/72/position = Vector3(-0.16236559, 0.01675687, -0.24024203)
+bones/72/rotation = Quaternion(0.7203013, 4.6448175e-05, 0.0001083212, 0.6936614)
+
+[node name="Mouth_Top" parent="MonsterWalk/Armature/Skeleton3D" index="0" unique_id=1907987208]
+transform = Transform3D(0.9999998, -0.00041058648, -0.00024931564, -0.00021356101, 0.08489065, -0.9963906, 0.0004302712, 0.9963905, 0.08489044, 0.000118209515, 2.1928027, 0.010382576)
+
+[node name="MouthBottom" parent="MonsterWalk/Armature/Skeleton3D" index="1" unique_id=515907851]
+transform = Transform3D(0.9999998, -0.00043688476, 0.00019993821, -0.0002146913, -0.7785974, -0.62752455, 0.0004298293, 0.62752444, -0.7785973, 0.000118209515, 2.1928027, 0.010382576)
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1928105722]
+root_node = NodePath("../MonsterWalk")
+tree_root = SubResource("AnimationNodeStateMachine_j7oc2")
+anim_player = NodePath("../MonsterWalk/AnimationPlayer")
+parameters/conditions/is_using_example_blend_tree = false
+parameters/conditions/is_using_movement_blend_tree = true
+parameters/Movement/IdleWalkRun/blend_amount = 0.01
+parameters/Movement/ScreamOneShot/active = false
+parameters/Movement/ScreamOneShot/internal_active = false
+parameters/Movement/ScreamOneShot/request = 0
+parameters/Movement/ScreamWhileMovingOneShot/active = false
+parameters/Movement/ScreamWhileMovingOneShot/internal_active = false
+parameters/Movement/ScreamWhileMovingOneShot/request = 0
+script = ExtResource("2_6gka1")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1638387211]
+transform = Transform3D(0.86383545, -0.08787416, 0.49605092, 0, 0.9846693, 0.17443164, -0.50377417, -0.15068024, 0.8505922, 0.6947719, 1.4858902, 1.9480933)
+current = true
+
+[node name="LowEndFootSteps" type="AudioStreamPlayer3D" parent="." unique_id=915435716]
+stream = ExtResource("5_7og0w")
+max_polyphony = 4
+
+[node name="TopEndFootSteps" type="AudioStreamPlayer3D" parent="." unique_id=1576828265]
+stream = ExtResource("6_7bofk")
+unit_size = 2.0
+max_polyphony = 4
+
+[node name="Scream" type="AudioStreamPlayer3D" parent="." unique_id=266091270]
+stream = ExtResource("7_7og0w")
+unit_size = 2.0
+
+[node name="PlayerInRangeArea3D" type="Area3D" parent="." unique_id=1888093146]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerInRangeArea3D" unique_id=2029312966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7125623, 0)
+shape = SubResource("CylinderShape3D_pb32r")
+
+[connection signal="body_entered" from="PlayerInRangeArea3D" to="." method="_on_player_in_range_area_3d_body_entered"]
+[connection signal="body_exited" from="PlayerInRangeArea3D" to="." method="_on_player_in_range_area_3d_body_exited"]
+
+[editable path="MonsterWalk"]
